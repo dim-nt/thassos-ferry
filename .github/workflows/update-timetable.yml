@@ -1,0 +1,42 @@
+name: Ανανέωση Δρομολογίων
+
+on:
+  schedule:
+    # Κάθε Κυριακή στις 08:00 UTC (11:00 Ελλάδα)
+    - cron: '0 8 * * 0'
+  # Επίσης μπορείς να το τρέξεις χειροκίνητα από το GitHub UI
+  workflow_dispatch:
+
+jobs:
+  update-timetable:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # για να κάνει commit το JSON
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 anthropic
+
+      - name: Run scraper
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scraper.py
+
+      - name: Commit & push timetable.json
+        run: |
+          git config --global user.name  "Ferry Bot 🚢"
+          git config --global user.email "bot@thassosferry.gr"
+          git add timetable.json
+          # Κάνε commit μόνο αν άλλαξε το αρχείο
+          git diff --staged --quiet && echo "Δεν υπάρχουν αλλαγές." || (
+            git commit -m "🗓️ Ανανέωση δρομολογίων $(date +%Y-%m-%d)" &&
+            git push
+          )
