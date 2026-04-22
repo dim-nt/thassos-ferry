@@ -2,210 +2,160 @@
 """
 Ferry Timetable Scraper — Thassos Ferry
 Τρέχει κάθε Κυριακή μέσω GitHub Actions.
-Διαβάζει τον πίνακα δρομολογίων από την ANETH (εικόνα JPG)
-χρησιμοποιώντας Claude Vision API και αποθηκεύει timetable.json.
 """
 
-import os
-import json
-import base64
-import requests
+import os, json, base64, re, requests
 import anthropic
 from bs4 import BeautifulSoup
 
 ANETH_URL = "https://anethferries.gr/dromologia/"
 
+
 def find_timetable_image(url: str) -> str | None:
-    """Βρίσκει το URL της εικόνας δρομολογίων στη σελίδα ANETH."""
     print(f"Ψάχνω εικόνα στο {url}...")
     try:
         r = requests.get(url, timeout=15)
         r.raise_for_status()
     except Exception as e:
-        print(f"Σφάλμα κατά την ανάκτηση σελίδας: {e}")
+        print(f"Σφάλμα σελίδας: {e}")
         return None
 
     soup = BeautifulSoup(r.text, "html.parser")
-
     candidates = []
 
     for tag in soup.find_all(["img", "a"]):
         src = tag.get("src") or tag.get("href") or ""
-        if not src:
-            continue
-
-        # Κάνε absolute URL
-        if src.startswith("//"):
-            src = "https:" + src
-        elif src.startswith("/"):
-            src = "https://anethferries.gr" + src
-
-        # Φίλτραρε: πρέπει να είναι από uploads και εικόνα
-        if "uploads" not in src:
+        if not src or "uploads" not in src:
             continue
         if not any(src.lower().endswith(x) for x in [".jpg", ".jpeg", ".png"]):
             continue
+        if src.startswith("//"): src = "https:" + src
+        elif src.startswith("/"): src = "https://anethferries.gr" + src
 
-        # Αποκλεισμός λογοτύπων και άλλων μη-δρομολογίων
-        skip_keywords = ["logo", "icon", "flag", "avatar", "banner", "footer"]
-        if any(kw in src.lower() for kw in skip_keywords):
+        skip = ["logo", "icon", "flag", "avatar", "banner", "footer"]
+        if any(k in src.lower() for k in skip):
             continue
 
-        # Προτεραιότητα σε εικόνες που περιέχουν ημερομηνία (π.χ. 21-04-2026)
-        import re
         has_date = bool(re.search(r'\d{2}-\d{2}-\d{4}', src))
         candidates.append((src, has_date))
 
-    # Προτίμησε εικόνες με ημερομηνία
-    dated = [s for s, has_date in candidates if has_date]
+    dated = [s for s, d in candidates if d]
     if dated:
-        print(f"Βρέθηκε (με ημερομηνία): {dated[0]}")
+        print(f"Βρέθηκε: {dated[0]}")
         return dated[0]
-
-    # Fallback: πρώτη υποψήφια
     if candidates:
-        print(f"Βρέθηκε (χωρίς ημερομηνία): {candidates[0][0]}")
+        print(f"Βρέθηκε (fallback): {candidates[0][0]}")
         return candidates[0][0]
 
     print("Δεν βρέθηκε εικόνα.")
     return None
 
 
+def call_claude(client, img_b64: str, media_type: str, direction: str) -> list | None:
+    """Μία κλήση για μία κατεύθυνση."""
+    if direction == "keramoti":
+        side = "FROM KERAMOTI (right side, column header: ΑΠΟ ΚΕΡΑΜΩΤΗ)"
+    else:
+        side = "FROM THASSOS/LIMENAS (left side, column header: ΑΠΟ ΛΙΜΕΝΑ)"
+
+    prompt = f"""Greek ferry timetable image. Extract ONLY: {side}
+
+Return ONLY a JSON array. Each element: ["HH:MM","MON","TUE","WED","THU","FRI","SAT","SUN"]
+Codes: TF=Thassos Ferries, TL=Thassos Link, TS=Thassos Seaways, AF=Aneth Ferries, null=unclear.
+Include ALL rows. Return ONLY the array, no other text, no markdown."""
+
+    try:
+        msg = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=6000,
+            messages=[{"role": "user", "content": [
+                {"type": "image", "source": {"type": "base64", "media_type": media_type, "data": img_b64}},
+                {"type": "text", "text": prompt}
+            ]}]
+        )
+    except Exception as e:
+        print(f"  Σφάλμα API ({direction}): {e}")
+        return None
+
+    raw = msg.content[0].text.strip()
+    if "```" in raw:
+        raw = raw.split("```")[1]
+        if raw.startswith("json"): raw = raw[4:]
+        raw = raw.strip()
+
+    # Επιδιόρθωση κομμένου array
+    if not raw.endswith("]"):
+        print(f"  Κομμένο JSON ({direction}), επιδιόρθωση...")
+        raw = raw.rstrip(",\n ")
+        open_sq = raw.count("[") - raw.count("]")
+        raw += "]" * open_sq
+
+    try:
+        data = json.loads(raw)
+        print(f"  ✅ {direction}: {len(data)} δρομολόγια")
+        return data
+    except json.JSONDecodeError as e:
+        print(f"  ❌ JSON error ({direction}): {e}")
+        print(f"  Raw: {raw[:300]}")
+        return None
+
+
 def read_timetable_from_image(image_url: str) -> dict | None:
-    """
-    Στέλνει την εικόνα στο Claude API και επιστρέφει
-    τα δρομολόγια σε JSON format.
-    """
-    print(f"Κατεβάζω εικόνα: {image_url}")
+    print(f"Κατεβάζω εικόνα...")
     try:
         r = requests.get(image_url, timeout=30)
         r.raise_for_status()
     except Exception as e:
-        print(f"Σφάλμα κατεβάσματος εικόνας: {e}")
+        print(f"Σφάλμα κατεβάσματος: {e}")
         return None
 
     img_b64 = base64.standard_b64encode(r.content).decode("utf-8")
-
-    # Καθόρισε media type
-    url_lower = image_url.lower()
-    if url_lower.endswith(".png"):
-        media_type = "image/png"
-    elif url_lower.endswith(".pdf"):
-        print("PDF δεν υποστηρίζεται ακόμα — χρησιμοποίησε JPG.")
-        return None
-    else:
-        media_type = "image/jpeg"
-
-    prompt = """This is a Greek ferry timetable image.
-
-Extract ALL departure times and the company that operates each departure for BOTH directions.
-
-Return ONLY a JSON object in this COMPACT format (arrays instead of objects for days):
-
-{
-  "week_start": "YYYY-MM-DD",
-  "week_end": "YYYY-MM-DD",
-  "days": ["mon","tue","wed","thu","fri","sat","sun"],
-  "from_keramoti": [
-    ["04:30", "TF", "TL", "TS", "AF", "TF", "TL", "TS"],
-    ["05:00", "TL", "TS", "AF", "TF", "TL", "TS", "AF"]
-  ],
-  "from_thassos": [
-    ["04:30", "TF", "TL", "TS", "AF", "TF", "TL", "TS"],
-    ["05:00", "TL", "TS", "AF", "TF", "TL", "TS", "AF"]
-  ]
-}
-
-Each inner array: [time, mon, tue, wed, thu, fri, sat, sun]
-Company codes: TF=Thassos Ferries, TL=Thassos Link, TS=Thassos Seaways, AF=Aneth Ferries
-Use null if a company is not visible for that day/time.
-
-IMPORTANT: Include ALL departures. Return ONLY the JSON, no other text."""
-
-    print("Στέλνω στο Claude API...")
+    media_type = "image/png" if image_url.lower().endswith(".png") else "image/jpeg"
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
-    try:
-        message = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=8000,
-            messages=[{
-                "role": "user",
-                "content": [
-                    {
-                        "type": "image",
-                        "source": {
-                            "type": "base64",
-                            "media_type": media_type,
-                            "data": img_b64
-                        }
-                    },
-                    {
-                        "type": "text",
-                        "text": prompt
-                    }
-                ]
-            }]
-        )
-    except Exception as e:
-        print(f"Σφάλμα Claude API: {e}")
+    print("Κλήση 1: από Κεραμωτή...")
+    from_k = call_claude(client, img_b64, media_type, "keramoti")
+
+    print("Κλήση 2: από Θάσο...")
+    from_t = call_claude(client, img_b64, media_type, "thassos")
+
+    if not from_k or not from_t:
         return None
 
-    raw = message.content[0].text.strip()
+    # Εξαγωγή ημερομηνιών από URL
+    dates = re.findall(r'(\d{2}-\d{2}-\d{4})', image_url)
+    def to_iso(d): return f"{d[6:]}-{d[3:5]}-{d[:2]}"
+    week_start = to_iso(dates[0]) if len(dates) >= 1 else "2026-01-01"
+    week_end   = to_iso(dates[1]) if len(dates) >= 2 else "2026-01-07"
 
-    # Καθάρισε markdown code fences αν υπάρχουν
-    if raw.startswith("```"):
-        raw = raw.split("```")[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.strip()
-
-    # Αν το JSON κόπηκε, προσπάθησε να το κλείσεις
-    if not raw.endswith("}"):
-        print("Προειδοποίηση: JSON φαίνεται κομμένο, προσπαθώ επιδιόρθωση...")
-        # Μέτρα ανοιχτά/κλειστά brackets
-        open_b = raw.count("{") - raw.count("}")
-        open_sq = raw.count("[") - raw.count("]")
-        # Κλείσε ανοιχτά arrays και objects
-        raw = raw.rstrip(",\n ")
-        for _ in range(open_sq):
-            raw += "]"
-        for _ in range(open_b):
-            raw += "}"
-
-    try:
-        data = json.loads(raw)
-        print(f"✅ Εβδομάδα: {data.get('week_start')} → {data.get('week_end')}")
-        print(f"   Αναχωρήσεις από Κεραμωτή: {len(data.get('from_keramoti', []))}")
-        print(f"   Αναχωρήσεις από Θάσο:     {len(data.get('from_thassos', []))}")
-        return data
-    except json.JSONDecodeError as e:
-        print(f"Σφάλμα ανάλυσης JSON: {e}")
-        print("Raw output (πρώτα 500 χαρακτήρες):", raw[:500])
-        return None
+    return {
+        "week_start": week_start,
+        "week_end": week_end,
+        "days": ["mon","tue","wed","thu","fri","sat","sun"],
+        "from_keramoti": from_k,
+        "from_thassos": from_t
+    }
 
 
 def main():
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise EnvironmentError("ANTHROPIC_API_KEY δεν βρέθηκε στα environment variables.")
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        raise EnvironmentError("ANTHROPIC_API_KEY λείπει.")
 
-    # 1. Βρες την εικόνα
     image_url = find_timetable_image(ANETH_URL)
     if not image_url:
-        raise RuntimeError("Δεν βρέθηκε εικόνα δρομολογίων.")
+        raise RuntimeError("Δεν βρέθηκε εικόνα.")
 
-    # 2. Διάβασε τα δρομολόγια με Claude
     timetable = read_timetable_from_image(image_url)
     if not timetable:
-        raise RuntimeError("Αποτυχία εξαγωγής δρομολογίων.")
+        raise RuntimeError("Αποτυχία εξαγωγής.")
 
-    # 3. Αποθήκευσε
-    out_path = "timetable.json"
-    with open(out_path, "w", encoding="utf-8") as f:
+    with open("timetable.json", "w", encoding="utf-8") as f:
         json.dump(timetable, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✅ Αποθηκεύτηκε: {out_path}")
+    print(f"\n✅ timetable.json αποθηκεύτηκε")
+    print(f"   Εβδομάδα: {timetable['week_start']} → {timetable['week_end']}")
+    print(f"   Κεραμωτή: {len(timetable['from_keramoti'])} δρομολόγια")
+    print(f"   Θάσος:    {len(timetable['from_thassos'])} δρομολόγια")
 
 
 if __name__ == "__main__":
