@@ -1,0 +1,32 @@
+{
+  "week_start": "2026-04-21",
+  "week_end": "2026-05-10",
+  "from_keramoti": [
+    {
+      "time": "04:30",
+      "days": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    }
+  ],
+  "from_thassos": [
+    {
+      "time": "04:30",
+      "days": {
+        "mon": null,
+        "tue": null,
+        "wed": null,
+        "thu": null,
+        "fri": null,
+        "sat": null,
+        "sun": null
+      }
+    }
+  ]
+}
