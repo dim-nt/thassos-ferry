@@ -405,6 +405,12 @@ const COS = {
   AF:{label:'Aneth Ferries',cls:'co-af'},
 };
 
+function getco(code){
+  // Καθαρισμός: null, "null", ώρες κλπ → εμφάνιση ως άγνωστο
+  if(!code || code==='null' || /^\d{2}:\d{2}$/.test(code)) return null;
+  return COS[code] || null;
+}
+
 let dir='k', selDay=-1, todayIdx=-1, timetable=null;
 
 function toM(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
@@ -470,20 +476,20 @@ function render(){
     :'🚢 Λιμένας Θάσου → Κεραμωτή · ~35 λεπτά';
 
   if(isToday&&nextIdx>=0){
-    const sl=s[nextIdx];const co=COS[sl.days[dayKey]]||{label:sl.days[dayKey],cls:'co-tf'};
+    const sl=s[nextIdx];const co=getco(sl.days[dayKey]);
     document.getElementById('nxtTime').textContent=sl.time;
     document.getElementById('nxtCd').textContent='σε '+fmt(toM(sl.time)-now);
-    document.getElementById('nxtCo').innerHTML=`<span class="co-tag ${co.cls}">${co.label}</span>`;
+    document.getElementById('nxtCo').innerHTML=co?`<span class="co-tag ${co.cls}">${co.label}</span>`:'';
     document.getElementById('nxtRoute').textContent=routeTxt;
     document.getElementById('nxtUp').innerHTML=
       s.slice(nextIdx+1,nextIdx+4).map(x=>`<div class="up-pill">${x.time}</div>`).join('');
   } else if(!isToday&&s.length>0){
-    const sl=s[0];const co=COS[sl.days[dayKey]]||{label:sl.days[dayKey],cls:'co-tf'};
+    const sl=s[0];const co=getco(sl.days[dayKey]);
     const ws=new Date(timetable.week_start);ws.setDate(ws.getDate()+selDay);
     document.getElementById('nxtTime').innerHTML=
       `<span style="font-family:var(--serif);font-size:26px;font-style:italic;color:rgba(255,255,255,.6)">${ws.toLocaleDateString('el-GR',{weekday:'long',day:'numeric',month:'short'})}</span>`;
     document.getElementById('nxtCd').textContent='πρώτο στις '+sl.time;
-    document.getElementById('nxtCo').innerHTML=`<span class="co-tag ${co.cls}">${co.label}</span>`;
+    document.getElementById('nxtCo').innerHTML=co?`<span class="co-tag ${co.cls}">${co.label}</span>`:'';
     document.getElementById('nxtRoute').textContent=routeTxt;
     document.getElementById('nxtUp').innerHTML=
       s.slice(0,4).map(x=>`<div class="up-pill">${x.time}</div>`).join('');
@@ -505,10 +511,10 @@ function render(){
     const absIdx=startIdx+i;
     const isNext=isToday&&absIdx===nextIdx;
     const minsAway=isToday?toM(sl.time)-now:null;
-    const co=COS[sl.days[dayKey]]||{label:sl.days[dayKey]||'—',cls:'co-tf'};
+    const co=getco(sl.days[dayKey]);
     return`<div class="frow ${isNext?'nxt-up-row':''}">
       <span class="ftime">${sl.time}</span>
-      <span class="fco"><span class="co-tag ${co.cls}">${co.label}</span></span>
+      <span class="fco">${co?`<span class="co-tag ${co.cls}">${co.label}</span>`:''}</span>
       ${minsAway!==null?`<span class="fmins">${fmt(minsAway)}</span>`:''}
     </div>`;
   }).join('');
