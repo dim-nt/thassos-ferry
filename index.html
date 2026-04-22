@@ -3,152 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Δρομολόγια Θάσος | Κεραμωτή–Θάσος Ferry</title>
-<meta name="description" content="Δρομολόγια πορθμείου Κεραμωτή–Θάσος σε real-time. Επόμενο πλοίο, ωράρια εβδομάδας, τιμές εισιτηρίων 2026.">
+<title>Δρομολόγια Θάσος | Κεραμωτή–Θάσος Ferry 2026</title>
+<meta name="description" content="Δρομολόγια πορθμείου Κεραμωτή–Θάσος. Επόμενο πλοίο σε real-time, εβδομαδιαίο πρόγραμμα, τιμές ανά εταιρεία 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
+/* ── DESIGN TOKEN PLACEHOLDERS ─────────────────────────────────────────────
+   Αυτές οι μεταβλητές θα αντικατασταθούν από τη γραφίστα.
+   Προσωρινά χρώματα — δεν είναι τελικά.
+────────────────────────────────────────────────────────────────────────── */
 :root {
-  --sea:#0c4a6e;--sea-mid:#0369a1;--sea-lite:#e0f2fe;
-  --sand:#fdf6ec;--sand2:#f5e8d0;--sand3:#e8d5b0;
-  --white:#fffdf9;--ink:#1a1a1a;--mid:#4a5568;--muted:#8a9bb0;
-  --amber:#b45309;--amber2:#fef3c7;--green:#166534;--green2:#dcfce7;
+  --c-primary:   #0c4a6e;   /* κύριο χρώμα header/card */
+  --c-primary2:  #075985;   /* gradient δεύτερο */
+  --c-accent:    #f59e0b;   /* accent / countdown */
+  --c-bg:        #f8f5f0;   /* background σελίδας */
+  --c-surface:   #ffffff;   /* κάρτες */
+  --c-border:    #e5ddd0;   /* borders */
+  --c-border2:   #d4c9b5;   /* darker borders */
+  --c-ink:       #1a1a1a;
+  --c-mid:       #4a5568;
+  --c-muted:     #8a9bb0;
+  --c-green-bg:  #dcfce7;
+  --c-green-tx:  #166534;
+  --c-amber-bg:  #fef3c7;
+  --c-amber-tx:  #92400e;
+  --c-blue-bg:   #e0f2fe;
+  /* εταιρείες */
+  --co-tf-bg: rgba(12,74,110,.1);  --co-tf-tx: #0c4a6e;
+  --co-tl-bg: rgba(180,83,9,.1);   --co-tl-tx: #b45309;
+  --co-ts-bg: rgba(22,101,52,.1);  --co-ts-tx: #166534;
+  --co-af-bg: rgba(109,40,217,.1); --co-af-tx: #6d28d9;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
   --mono:'DM Mono',monospace;
 }
+
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--sand);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;}
+body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
 
-/* HEADER */
-.site-header{background:var(--sea);padding:28px 20px 0;position:relative;overflow:hidden;}
-.site-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 70% at 100% 100%,rgba(186,148,80,.15) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 0% 0%,rgba(255,255,255,.04) 0%,transparent 50%);pointer-events:none;}
-.header-inner{max-width:520px;margin:0 auto;position:relative;z-index:1;}
-.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;}
-.site-title{font-family:var(--serif);font-size:clamp(32px,8vw,48px);font-weight:400;color:#fff;line-height:1.08;letter-spacing:-.01em;}
-.site-title em{font-style:italic;color:rgba(255,255,255,.5);}
-.header-meta{margin-top:10px;font-size:12px;color:rgba(255,255,255,.45);font-weight:300;}
+/* ── HEADER ── */
+.hdr{background:var(--c-primary);padding:26px 20px 0;position:relative;overflow:hidden;}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 60% at 90% 110%,rgba(245,158,11,.12) 0%,transparent 55%);pointer-events:none;}
+.hdr-in{max-width:520px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.4);display:block;margin-bottom:5px;}
+.site-ttl{font-family:var(--serif);font-size:clamp(30px,8vw,46px);font-weight:400;color:#fff;line-height:1.08;}
+.site-ttl em{font-style:italic;color:rgba(255,255,255,.45);}
+.hdr-meta{margin-top:8px;font-size:12px;color:rgba(255,255,255,.4);font-weight:300;}
 
-/* NAV TABS */
-.nav-tabs{display:flex;gap:2px;margin-top:20px;border-bottom:1px solid rgba(255,255,255,.1);}
-.nav-tab{background:none;border:none;color:rgba(255,255,255,.45);font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 16px 11px;cursor:pointer;transition:color .2s;position:relative;letter-spacing:.01em;}
-.nav-tab.active{color:#fff;}
-.nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:#f59e0b;border-radius:1px 1px 0 0;}
+/* ── TABS ── */
+.tabs{display:flex;margin-top:18px;border-bottom:1px solid rgba(255,255,255,.1);}
+.tab{background:none;border:none;color:rgba(255,255,255,.42);font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 15px 11px;cursor:pointer;position:relative;transition:color .18s;letter-spacing:.01em;white-space:nowrap;}
+.tab.on{color:#fff;}
+.tab.on::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--c-accent);border-radius:1px 1px 0 0;}
 
-/* CURVE */
-.curve{background:var(--sea);height:32px;position:relative;}
-.curve::after{content:'';position:absolute;bottom:0;left:0;right:0;height:32px;background:var(--sand);border-radius:24px 24px 0 0;}
+/* ── CURVE ── */
+.curve{height:28px;background:var(--c-primary);position:relative;}
+.curve::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28px;background:var(--c-bg);border-radius:22px 22px 0 0;}
 
-/* MAIN */
+/* ── MAIN ── */
 .main{max-width:520px;margin:0 auto;padding:0 16px 80px;}
-.panel{display:none;}.panel.active{display:block;}
+.panel{display:none;}.panel.on{display:block;}
 
-/* DIRECTION */
-.direction{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:16px 0 14px;}
-.dir-btn{background:#fff;border:1.5px solid var(--sand3);border-radius:14px;padding:12px 10px;font-family:var(--sans);font-size:12px;font-weight:500;color:var(--mid);cursor:pointer;transition:all .22s ease;text-align:center;line-height:1.4;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.dir-btn strong{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
-.dir-btn small{font-size:10px;font-weight:300;color:var(--muted);font-family:var(--mono);letter-spacing:.04em;}
-.dir-btn.active{background:var(--sea);border-color:var(--sea);box-shadow:0 4px 18px rgba(12,74,110,.28);}
-.dir-btn.active strong,.dir-btn.active small{color:rgba(255,255,255,.9);}
-.swap-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--sand3);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--sea);transition:transform .35s ease,background .2s;box-shadow:0 1px 4px rgba(0,0,0,.06);flex-shrink:0;}
-.swap-btn:hover{transform:rotate(180deg);background:var(--sea-lite);}
+/* ── DIRECTION ── */
+.dir{display:grid;grid-template-columns:1fr 36px 1fr;align-items:center;gap:8px;padding:14px 0 12px;}
+.dir-btn{background:var(--c-surface);border:1.5px solid var(--c-border2);border-radius:12px;padding:11px 8px;font-family:var(--sans);font-size:12px;font-weight:500;color:var(--c-mid);cursor:pointer;text-align:center;line-height:1.35;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.dir-btn b{display:block;font-size:13px;font-weight:600;color:var(--c-ink);margin-bottom:1px;}
+.dir-btn small{font-family:var(--mono);font-size:9px;color:var(--c-muted);letter-spacing:.04em;}
+.dir-btn.on{background:var(--c-primary);border-color:var(--c-primary);box-shadow:0 4px 16px rgba(12,74,110,.25);}
+.dir-btn.on b,.dir-btn.on small{color:rgba(255,255,255,.9);}
+.swap{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--c-border2);background:var(--c-surface);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:transform .32s,background .18s;}
+.swap:hover{transform:rotate(180deg);background:var(--c-blue-bg);}
 
-/* NEXT CARD */
-.next-card{background:linear-gradient(150deg,var(--sea) 0%,#075985 100%);border-radius:22px;padding:22px 22px 20px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 8px 30px rgba(12,74,110,.22);}
-.next-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
-.next-label{font-family:var(--mono);font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:7px;margin-bottom:14px;}
-.pulse{width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block;animation:pulse 2.2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);}}
-.next-time-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;position:relative;z-index:1;}
-.next-time{font-family:var(--serif);font-size:clamp(54px,14vw,76px);font-weight:400;color:#fff;line-height:1;letter-spacing:-.02em;}
-.countdown{background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.35);border-radius:10px;padding:6px 12px;font-family:var(--mono);font-size:13px;color:#fbbf24;margin-bottom:6px;white-space:nowrap;}
-.next-route{font-size:12px;color:rgba(255,255,255,.5);font-weight:300;position:relative;z-index:1;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);margin-top:10px;}
-.upcoming-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;position:relative;z-index:1;}
-.upcoming-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 10px;font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.6);}
+/* ── DAYS ── */
+.days{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:14px;}
+.days::-webkit-scrollbar{display:none;}
+.day-btn{flex:0 0 auto;background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:10px;padding:7px 11px;cursor:pointer;text-align:center;transition:all .18s;}
+.day-btn .dname{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--c-muted);display:block;margin-bottom:2px;}
+.day-btn .dnum{font-family:var(--serif);font-size:20px;color:var(--c-ink);display:block;line-height:1.1;}
+.day-btn.today .dname{color:var(--c-accent);}
+.day-btn.on{background:var(--c-primary);border-color:var(--c-primary);}
+.day-btn.on .dname,.day-btn.on .dnum{color:#fff;}
 
-/* WEEK BADGE */
-.week-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber2);border:1px solid rgba(180,83,9,.15);border-radius:10px;padding:7px 14px;font-size:12px;color:var(--amber);font-weight:500;margin-bottom:14px;}
+/* ── NEXT CARD ── */
+.nxt{background:linear-gradient(148deg,var(--c-primary) 0%,var(--c-primary2) 100%);border-radius:20px;padding:20px 20px 18px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 6px 28px rgba(12,74,110,.2);}
+.nxt::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
+.nxt-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:7px;margin-bottom:12px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--c-accent);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.6);}}
+.nxt-row{display:flex;align-items:flex-end;gap:12px;margin-bottom:5px;}
+.nxt-time{font-family:var(--serif);font-size:clamp(52px,13vw,72px);font-weight:400;color:#fff;line-height:1;letter-spacing:-.02em;}
+.nxt-cd{background:rgba(245,158,11,.16);border:1px solid rgba(245,158,11,.3);border-radius:9px;padding:5px 11px;font-family:var(--mono);font-size:12px;color:#fbbf24;white-space:nowrap;margin-bottom:5px;}
+.nxt-route{font-size:11px;color:rgba(255,255,255,.45);font-weight:300;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);margin-top:8px;}
+.nxt-up{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
+.up-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:7px;padding:3px 9px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.55);}
+.no-more-card{font-family:var(--serif);font-size:28px;font-style:italic;color:rgba(255,255,255,.5);padding:10px 0;}
 
-/* SECTION HDR */
-.section-hdr{display:flex;align-items:center;gap:10px;margin:20px 0 10px;}
-.section-hdr span{font-family:var(--mono);font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
-.section-hdr::after{content:'';flex:1;height:1px;background:var(--sand3);}
+/* ── SECTION HDR ── */
+.shdr{display:flex;align-items:center;gap:10px;margin:18px 0 9px;}
+.shdr span{font-family:var(--mono);font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;}
+.shdr::after{content:'';flex:1;height:1px;background:var(--c-border2);}
 
-/* FERRY ROWS */
-.ferry-list{display:flex;flex-direction:column;gap:5px;}
-.ferry-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#fff;border-radius:12px;border:1px solid var(--sand2);transition:all .18s ease;cursor:default;}
-.ferry-row:hover{border-color:var(--sand3);box-shadow:0 2px 12px rgba(0,0,0,.06);transform:translateX(2px);}
-.ferry-row.past{background:transparent;border-color:transparent;opacity:.32;}
-.ferry-row.next-up{background:var(--sea-lite);border-color:rgba(12,74,110,.3);}
-.ferry-time{font-family:var(--mono);font-size:19px;font-weight:400;color:var(--ink);min-width:62px;letter-spacing:.02em;}
-.ferry-row.next-up .ferry-time{color:var(--sea);font-weight:600;}
-.ferry-row.past .ferry-time{color:var(--muted);}
-.ferry-company{flex:1;font-size:11px;font-weight:500;padding:2px 8px;border-radius:6px;letter-spacing:.02em;display:inline-block;}
-.co-tf{background:rgba(12,74,110,.1);color:#0c4a6e;}
-.co-tl{background:rgba(180,83,9,.1);color:#b45309;}
-.co-ts{background:rgba(22,101,52,.1);color:#166534;}
-.co-af{background:rgba(109,40,217,.1);color:#6d28d9;}
-.ferry-mins{font-family:var(--mono);font-size:11px;color:#f59e0b;white-space:nowrap;}
-.ferry-row.past .ferry-mins{display:none;}
-.no-more{text-align:center;padding:28px;font-family:var(--serif);font-size:18px;font-style:italic;color:var(--muted);}
+/* ── FERRY LIST ── (starts from NEXT — no past shown) */
+.flist{display:flex;flex-direction:column;gap:5px;}
+.frow{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(--c-surface);border-radius:11px;border:1px solid var(--c-border);transition:all .16s;}
+.frow:hover{border-color:var(--c-border2);box-shadow:0 2px 10px rgba(0,0,0,.05);transform:translateX(2px);}
+.frow.nxt-up-row{background:var(--c-blue-bg);border-color:rgba(12,74,110,.28);}
+.frow.nxt-up-row .ftime{color:var(--c-primary);font-weight:600;}
+.ftime{font-family:var(--mono);font-size:18px;min-width:58px;color:var(--c-ink);}
+.fco{flex:1;}
+.co-tag{font-size:10px;font-weight:500;padding:2px 7px;border-radius:5px;letter-spacing:.02em;}
+.co-tf{background:var(--co-tf-bg);color:var(--co-tf-tx);}
+.co-tl{background:var(--co-tl-bg);color:var(--co-tl-tx);}
+.co-ts{background:var(--co-ts-bg);color:var(--co-ts-tx);}
+.co-af{background:var(--co-af-bg);color:var(--co-af-tx);}
+/* Μέσα στο σκούρο next-card — ανοιχτά χρώματα */
+.nxt .co-tf{background:rgba(255,255,255,.14);color:#93c5fd;}
+.nxt .co-tl{background:rgba(255,255,255,.14);color:#fcd34d;}
+.nxt .co-ts{background:rgba(255,255,255,.14);color:#6ee7b7;}
+.nxt .co-af{background:rgba(255,255,255,.14);color:#c4b5fd;}
+.fmins{font-family:var(--mono);font-size:11px;color:var(--c-accent);white-space:nowrap;}
+.empty-day{text-align:center;padding:32px 20px;font-family:var(--serif);font-size:20px;font-style:italic;color:var(--c-muted);}
 
-/* PRICES */
-.prices-panel{padding-top:8px;}
-.price-section{background:#fff;border-radius:16px;border:1px solid var(--sand2);overflow:hidden;margin-bottom:14px;}
-.price-section-hdr{background:var(--sea);padding:12px 18px;font-family:var(--sans);font-size:12px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.05em;text-transform:uppercase;}
-.price-row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-bottom:1px solid var(--sand2);font-size:14px;}
-.price-row:last-of-type{border-bottom:none;}
-.price-cat{color:var(--mid);font-weight:300;}
-.price-val{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:600;}
-.price-note{font-size:12px;color:var(--muted);padding:10px 18px 14px;font-style:italic;font-weight:300;line-height:1.5;}
-.discount-box{background:var(--green2);border:1px solid rgba(22,101,52,.15);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
-.discount-box h4{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
-.discount-box ul{list-style:none;}
-.discount-box li{font-size:13px;color:#166534;font-weight:300;padding:3px 0;display:flex;gap:8px;line-height:1.5;}
-.discount-box li::before{content:'↳';color:var(--green);}
-.tip-box{background:var(--amber2);border:1px solid rgba(180,83,9,.12);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
-.tip-box h4{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-.tip-box ul{list-style:none;}
-.tip-box li{font-size:13px;color:#92400e;font-weight:300;padding:3px 0;display:flex;gap:8px;line-height:1.5;}
-.tip-box li::before{content:'•';color:var(--amber);}
-
-/* INFO */
-.info-panel{padding-top:8px;}
-.info-card{background:#fff;border-radius:16px;border:1px solid var(--sand2);padding:18px;margin-bottom:12px;}
-.info-card h3{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:10px;}
-.info-card p{font-size:13px;color:var(--mid);font-weight:300;line-height:1.6;margin-bottom:8px;}
-.company-list{list-style:none;margin-top:8px;}
-.company-list li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--sand2);font-size:13px;}
-.company-list li:last-child{border-bottom:none;}
+/* ── PRICES ── */
+.prices-wrap{padding-top:6px;}
+.co-section{background:var(--c-surface);border-radius:14px;border:1px solid var(--c-border);overflow:hidden;margin-bottom:12px;}
+.co-hdr{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--c-border);}
 .co-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .dot-tf{background:#0c4a6e;}.dot-tl{background:#b45309;}.dot-ts{background:#166534;}.dot-af{background:#6d28d9;}
-.company-list .name{font-weight:500;flex:1;color:var(--ink);}
-.company-list .phone{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;}
-.company-list .phone:hover{color:var(--sea);}
+.co-name{font-size:13px;font-weight:600;color:var(--c-ink);}
+.co-phone{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--c-muted);text-decoration:none;}
+.co-phone:hover{color:var(--c-primary);}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:9px 16px;border-bottom:1px solid var(--c-border);font-size:13px;}
+.prow:last-child{border-bottom:none;}
+.pcat{color:var(--c-mid);font-weight:300;}
+.pval{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--c-ink);}
+.pval.highlight{color:#b45309;}
+.pnote{font-size:11px;color:var(--c-muted);padding:8px 16px 10px;font-style:italic;line-height:1.5;}
 
-/* FOOTER */
-.site-footer{text-align:center;padding:28px 16px 20px;font-size:11px;color:var(--muted);letter-spacing:.04em;max-width:520px;margin:0 auto;line-height:1.8;}
-.site-footer a{color:var(--muted);text-decoration:none;}
-.site-footer a:hover{color:var(--sea);}
+.info-box{border-radius:12px;padding:13px 15px;margin-bottom:12px;}
+.info-box.green{background:var(--c-green-bg);border:1px solid rgba(22,101,52,.15);}
+.info-box.green h4{color:var(--c-green-tx);}
+.info-box.green li{color:var(--c-green-tx);}
+.info-box.amber{background:var(--c-amber-bg);border:1px solid rgba(180,83,9,.12);}
+.info-box.amber h4{color:#b45309;}
+.info-box.amber li{color:var(--c-amber-tx);}
+.info-box h4{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:9px;}
+.info-box ul{list-style:none;}
+.info-box li{font-size:12px;font-weight:300;padding:3px 0;line-height:1.5;display:flex;gap:7px;}
+.info-box li::before{content:'›';flex-shrink:0;}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.next-card{animation:fadeUp .5s ease both;}
-.ferry-list{animation:fadeUp .5s ease .1s both;}
-@media(max-width:360px){.ferry-time{font-size:17px;min-width:54px;}.next-time{font-size:50px;}}
+/* ── INFO ── */
+.info-wrap{padding-top:6px;}
+.icard{background:var(--c-surface);border-radius:14px;border:1px solid var(--c-border);padding:16px;margin-bottom:10px;}
+.icard h3{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:9px;}
+.icard p{font-size:13px;color:var(--c-mid);font-weight:300;line-height:1.6;margin-bottom:7px;}
+.co-list{list-style:none;margin-top:6px;}
+.co-list li{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--c-border);font-size:13px;}
+.co-list li:last-child{border-bottom:none;}
+.co-list .nm{font-weight:500;flex:1;}
+.co-list a{font-family:var(--mono);font-size:11px;color:var(--c-muted);text-decoration:none;}
+.co-list a:hover{color:var(--c-primary);}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:24px 16px 16px;font-size:11px;color:var(--c-muted);line-height:1.8;max-width:520px;margin:0 auto;}
+.footer a{color:var(--c-muted);text-decoration:none;}
+.footer a:hover{color:var(--c-primary);}
+
+@keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.nxt{animation:up .45s ease both;}
+.flist{animation:up .45s ease .08s both;}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="header-inner">
-    <span class="eyebrow">Πορθμείο · Ferry Service · 2026</span>
-    <h1 class="site-title">Κεραμωτή<br><em>↔ Θάσος</em></h1>
-    <p class="header-meta">Λιμένας Θάσου · ~35 λεπτά διάπλους</p>
-    <nav class="nav-tabs">
-      <button class="nav-tab active" data-panel="schedule">🕐 Δρομολόγια</button>
-      <button class="nav-tab" data-panel="prices">🎫 Τιμές</button>
-      <button class="nav-tab" data-panel="info">ℹ️ Πληροφορίες</button>
+<header class="hdr">
+  <div class="hdr-in">
+    <span class="eyebrow">Πορθμείο · Ferry · 2026</span>
+    <h1 class="site-ttl">Κεραμωτή <em>↔ Θάσος</em></h1>
+    <p class="hdr-meta">Λιμένας Θάσου · ~35 λεπτά</p>
+    <nav class="tabs">
+      <button class="tab on" data-p="schedule">🕐 Δρομολόγια</button>
+      <button class="tab" data-p="prices">🎫 Τιμές</button>
+      <button class="tab" data-p="info">ℹ️ Πληροφορίες</button>
     </nav>
   </div>
 </header>
@@ -157,122 +194,183 @@ body{background:var(--sand);color:var(--ink);font-family:var(--sans);font-size:1
 
 <main class="main">
 
-  <!-- SCHEDULE -->
-  <div class="panel active" id="panel-schedule">
-    <div class="direction">
-      <button class="dir-btn active" id="btn-ker" onclick="setDir('keramoti')">
-        <strong>Κεραμωτή</strong>
-        <small>→ Λιμένας</small>
+  <!-- ═══ SCHEDULE ═══ -->
+  <div class="panel on" id="panel-schedule">
+
+    <!-- Direction -->
+    <div class="dir">
+      <button class="dir-btn on" id="btn-k" onclick="setDir('k')">
+        <b>Κεραμωτή</b><small>→ Λιμένας</small>
       </button>
-      <button class="swap-btn" onclick="swapDir()">⇄</button>
-      <button class="dir-btn" id="btn-tha" onclick="setDir('thassos')">
-        <strong>Θάσος</strong>
-        <small>→ Κεραμωτή</small>
+      <button class="swap" onclick="swapDir()">⇄</button>
+      <button class="dir-btn" id="btn-t" onclick="setDir('t')">
+        <b>Θάσος</b><small>→ Κεραμωτή</small>
       </button>
     </div>
 
-    <div class="week-badge">📅 Ισχύει 20–26 Απριλίου 2026</div>
+    <!-- Day selector -->
+    <div class="days" id="days"></div>
 
-    <div class="next-card">
-      <div class="next-label"><span class="pulse"></span>Επόμενο δρομολόγιο</div>
-      <div class="next-time-row">
-        <div class="next-time" id="nextTime">--:--</div>
-        <div class="countdown" id="countdown">--</div>
+    <!-- Next card -->
+    <div class="nxt">
+      <div class="nxt-lbl"><span class="dot"></span>Επόμενο δρομολόγιο</div>
+      <div class="nxt-row">
+        <div class="nxt-time" id="nxtTime">--:--</div>
+        <div class="nxt-cd" id="nxtCd">--</div>
       </div>
-      <div class="next-route" id="nextRoute"></div>
-      <div class="upcoming-row" id="upcomingRow"></div>
+      <div id="nxtCo" style="margin-bottom:4px"></div>
+      <div class="nxt-route" id="nxtRoute"></div>
+      <div class="nxt-up" id="nxtUp"></div>
     </div>
 
-    <div class="section-hdr"><span id="listLabel">Αναχωρήσεις από Κεραμωτή</span></div>
-    <div class="ferry-list" id="ferryList"></div>
+    <!-- List label -->
+    <div class="shdr"><span id="listLbl">Αναχωρήσεις από Κεραμωτή</span></div>
+
+    <!-- Ferry list (only upcoming) -->
+    <div class="flist" id="flist"></div>
+
   </div>
 
-  <!-- PRICES -->
+  <!-- ═══ PRICES ═══ -->
   <div class="panel" id="panel-prices">
-    <div class="prices-panel">
-      <div class="section-hdr" style="margin-top:16px"><span>Κεραμωτή — Λιμένας Θάσου</span></div>
+    <div class="prices-wrap">
 
-      <div class="price-section">
-        <div class="price-section-hdr">🧍 Επιβάτες</div>
-        <div class="price-row"><span class="price-cat">Ενήλικας</span><span class="price-val">6,00€</span></div>
-        <div class="price-row"><span class="price-cat">Παιδί 5–10 ετών</span><span class="price-val">3,00€</span></div>
-        <div class="price-row"><span class="price-cat">Παιδί έως 5 ετών</span><span class="price-val">Δωρεάν</span></div>
-        <div class="price-row"><span class="price-cat">Γκρουπ (ανά άτομο)</span><span class="price-val">4,00€</span></div>
+      <div class="shdr" style="margin-top:14px"><span>Τιμές ανά εταιρεία · Κεραμωτή–Θάσος</span></div>
+
+      <!-- Thassos Link -->
+      <div class="co-section">
+        <div class="co-hdr">
+          <span class="co-dot dot-tl"></span>
+          <span class="co-name">Thassos Link</span>
+          <a href="tel:+306973404079" class="co-phone">6973 404079</a>
+        </div>
+        <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">5,00€</span></div>
+        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">20,00€ <span class="highlight">· Promo 12€</span></span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">25,00€ <span class="highlight">· Promo 17€</span></span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">5,00€</span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">6,00€</span></div>
+        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">3,00€</span></div>
+        <p class="pnote">* Promo τιμές οχημάτων — επιβεβαιώστε στο εκδοτήριο.</p>
       </div>
 
-      <div class="price-section">
-        <div class="price-section-hdr">🚗 Οχήματα</div>
-        <div class="price-row"><span class="price-cat">Αυτοκίνητο έως 4,25μ</span><span class="price-val">21–22€</span></div>
-        <div class="price-row"><span class="price-cat">Αυτοκίνητο άνω 4,25μ</span><span class="price-val">26–27€</span></div>
-        <div class="price-row"><span class="price-cat">Μοτοσυκλέτα έως 250cc</span><span class="price-val">5–6€</span></div>
-        <div class="price-row"><span class="price-cat">Μοτοσυκλέτα άνω 250cc</span><span class="price-val">6–7€</span></div>
-        <div class="price-row"><span class="price-cat">Ποδήλατο</span><span class="price-val">3,00€</span></div>
-        <p class="price-note">* Ελαφρές διαφορές μεταξύ εταιρειών. Εισιτήρια μόνο στο εκδοτήριο του λιμανιού — δεν υπάρχει online αγορά.</p>
+      <!-- Thassos Ferries -->
+      <div class="co-section">
+        <div class="co-hdr">
+          <span class="co-dot dot-tf"></span>
+          <span class="co-name">Thassos Ferries</span>
+          <a href="tel:+302593024001" class="co-phone">25930 24001</a>
+        </div>
+        <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,00€</span></div>
+        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">7,00€</span></div>
+        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
 
-      <div class="discount-box">
+      <!-- Aneth Ferries -->
+      <div class="co-section">
+        <div class="co-hdr">
+          <span class="co-dot dot-af"></span>
+          <span class="co-name">Aneth Ferries</span>
+          <a href="tel:+302593022318" class="co-phone">25930 22318</a>
+        </div>
+        <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,00€</span></div>
+        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">7,00€</span></div>
+        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
+        <p class="pnote">* Thassos Ferries & Aneth Ferries λειτουργούν ως κοινοπραξία — ίδιες τιμές.</p>
+      </div>
+
+      <!-- Thassos Seaways -->
+      <div class="co-section">
+        <div class="co-hdr">
+          <span class="co-dot dot-ts"></span>
+          <span class="co-name">Thassos Seaways</span>
+          <a href="tel:+302104657211" class="co-phone">210 4657211</a>
+        </div>
+        <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">~6,00€</span></div>
+        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">~21,00€</span></div>
+        <div class="prow"><span class="pcat">Μοτοσυκλέτα</span><span class="pval">~5–6€</span></div>
+        <p class="pnote">* Επιβεβαιώστε τιμές στο εκδοτήριο ή στο τηλέφωνο.</p>
+      </div>
+
+      <div class="info-box green">
         <h4>🎫 Εκπτώσεις</h4>
         <ul>
-          <li>Πολύτεκνοι / Τρίτεκνοι: <strong>50%</strong> (ΑΝΕΘ + Thassos Link)</li>
-          <li>ΑμεΑ (αναπηρία 60%+): <strong>50%</strong> (ΑΝΕΘ)</li>
+          <li>Thassos Link — Πολύτεκνοι/Τρίτεκνοι: <b>50%</b></li>
+          <li>ΑΝΕΘ — ΑμεΑ (60%+): <b>50%</b> σε επιβάτες & οχήματα</li>
+          <li>ΑΝΕΘ — Πολύτεκνοι: <b>50%</b> · Τρίτεκνοι: <b>50%</b> (επιβάτες)</li>
+          <li>Παιδιά έως 5 ετών: <b>Δωρεάν</b> παντού</li>
         </ul>
       </div>
 
-      <div class="tip-box">
-        <h4>💡 Χρήσιμα tips</h4>
+      <div class="info-box amber">
+        <h4>💡 Χρήσιμα</h4>
         <ul>
-          <li>Αποδεκτές χρεωστικές &amp; πιστωτικές κάρτες σε όλα τα εκδοτήρια.</li>
-          <li>Με αυτοκίνητο: προσέλευση <strong>30–45 λεπτά νωρίτερα</strong>.</li>
-          <li>Δεν εκδίδονται εισιτήρια aller-retour — ξεχωριστό από κάθε λιμάνι.</li>
+          <li>Εισιτήρια μόνο στο εκδοτήριο λιμανιού — δεν υπάρχει online αγορά.</li>
+          <li>Αποδεκτές χρεωστικές & πιστωτικές κάρτες.</li>
+          <li>Με αυτοκίνητο: προσέλευση 30–45 λεπτά νωρίτερα.</li>
+          <li>Δεν εκδίδονται εισιτήρια aller-retour.</li>
         </ul>
       </div>
+
     </div>
   </div>
 
-  <!-- INFO -->
+  <!-- ═══ INFO ═══ -->
   <div class="panel" id="panel-info">
-    <div class="info-panel">
-      <div class="info-card" style="margin-top:16px">
+    <div class="info-wrap">
+      <div class="icard" style="margin-top:14px">
         <h3>Η διαδρομή</h3>
-        <p>Η γραμμή <strong>Κεραμωτή–Λιμένας Θάσου</strong> είναι η κύρια σύνδεση του νησιού με την ηπειρωτική χώρα. Λειτουργεί 365 ημέρες το χρόνο.</p>
-        <p>Διάπλους: ~35 λεπτά. Αεροδρόμιο Καβάλας (KVA): 12 χλμ από Κεραμωτή.</p>
+        <p>Η γραμμή <b>Κεραμωτή–Λιμένας Θάσου</b> λειτουργεί 365 ημέρες τον χρόνο. 30 δρομολόγια ημερησίως από κάθε λιμάνι (Απρ–Μαΐ 2026).</p>
+        <p>Διάπλους ~35 λεπτά. Αεροδρόμιο Καβάλας (KVA): 12 χλμ από Κεραμωτή.</p>
       </div>
-
-      <div class="info-card">
-        <h3>Ναυτιλιακές εταιρείες</h3>
-        <ul class="company-list">
-          <li><span class="co-dot dot-tf"></span><span class="name">Thassos Ferries (ΑΝΕΘ)</span><a href="tel:+302593024001" class="phone">25930 24001</a></li>
-          <li><span class="co-dot dot-tl"></span><span class="name">Thassos Link</span><a href="tel:+306973404079" class="phone">6973 404079</a></li>
-          <li><span class="co-dot dot-ts"></span><span class="name">Thassos Seaways</span><a href="tel:+302104657211" class="phone">210 4657211</a></li>
-          <li><span class="co-dot dot-af"></span><span class="name">Aneth Ferries</span><a href="tel:+302593022318" class="phone">25930 22318</a></li>
+      <div class="icard">
+        <h3>Εταιρείες</h3>
+        <ul class="co-list">
+          <li><span class="co-dot dot-tf"></span><span class="nm">Thassos Ferries (ΑΝΕΘ)</span><a href="tel:+302593024001">25930 24001</a></li>
+          <li><span class="co-dot dot-tl"></span><span class="nm">Thassos Link</span><a href="tel:+306973404079">6973 404079</a></li>
+          <li><span class="co-dot dot-ts"></span><span class="nm">Thassos Seaways</span><a href="tel:+302104657211">210 4657211</a></li>
+          <li><span class="co-dot dot-af"></span><span class="nm">Aneth Ferries</span><a href="tel:+302593022318">25930 22318</a></li>
         </ul>
       </div>
-
-      <div class="info-card">
-        <h3>Για τα δρομολόγια</h3>
-        <p>Οι ώρες <strong>παραμένουν ίδιες κάθε ημέρα</strong> (Δευ–Κυρ). Αλλάζει μόνο ποια εταιρεία εκτελεί κάθε δρομολόγιο — οι 4 εταιρείες εναλλάσσονται.</p>
-        <p>Το πρόγραμμα ενημερώνεται <strong>κάθε Κυριακή</strong> για την επόμενη εβδομάδα.</p>
+      <div class="icard">
+        <h3>Σχετικά με τα δρομολόγια</h3>
+        <p>Οι ώρες είναι <b>ίδιες κάθε μέρα</b> (Δευ–Κυρ). Αλλάζει ποια εταιρεία εκτελεί κάθε δρομολόγιο — οι 4 εναλλάσσονται βάσει εβδομαδιαίου πίνακα.</p>
+        <p>Ενημέρωση <b>κάθε Κυριακή</b> για την επόμενη εβδομάδα.</p>
       </div>
     </div>
   </div>
 
 </main>
 
-<footer class="site-footer">
-  Πηγή: <a href="https://anethferries.gr" target="_blank">anethferries.gr</a> · <a href="https://www.thassoslines.gr" target="_blank">thassoslines.gr</a><br>
+<footer class="footer">
+  Πηγή: <a href="https://anethferries.gr" target="_blank">anethferries.gr</a> ·
+  <a href="https://thassoslink.gr" target="_blank">thassoslink.gr</a> ·
+  <a href="https://www.thassoslines.gr" target="_blank">thassoslines.gr</a><br>
   Δεν φέρουμε ευθύνη για αλλαγές. Για επιβεβαίωση επικοινωνήστε με τις εταιρείες.
 </footer>
 
 <script>
-const FROM_KERAMOTI = [
+// ══ DATA ══════════════════════════════════════════════════════════════
+// Εβδομάδα 20-26 Απρ 2026 · Ίδιες ώρες κάθε μέρα
+const FROM_K = [
   '04:30','05:00','05:45','06:15','07:00','07:30',
   '08:15','08:45','09:15','09:45','10:15','10:45',
   '11:15','11:45','12:15','12:45','13:15','13:45',
   '14:15','14:45','15:15','16:00','16:45','17:30',
   '18:15','19:00','19:45','20:30','21:15','22:30'
 ];
-
-const FROM_THASSOS = [
+const FROM_T = [
   '04:30','05:00','05:45','06:15','07:00','07:30',
   '08:00','08:30','09:00','09:30','10:00','10:30',
   '11:00','11:30','12:00','12:30','13:00','13:30',
@@ -280,76 +378,142 @@ const FROM_THASSOS = [
   '18:30','19:15','20:00','21:00','21:45','22:30'
 ];
 
-// Οι εταιρείες εναλλάσσονται — εμφανίζουμε cycling ανά slot
+// Εταιρείες ανά ημέρα ανά slot
+// ΣΗΜΕΙΩΣΗ: χρειάζεται το PDF για 100% σωστή αντιστοίχιση.
+// Προσωρινά: cycling βάσει slot index + ημέρα offset.
+// Αντικατάστησε με τα σωστά δεδομένα από τον πίνακα.
 const COS = [
-  {label:'Thassos Ferries',cls:'co-tf'},
-  {label:'Thassos Link',   cls:'co-tl'},
-  {label:'Thassos Seaways',cls:'co-ts'},
-  {label:'Aneth Ferries',  cls:'co-af'},
+  {id:'tf', label:'Thassos Ferries', cls:'co-tf', dot:'dot-tf'},
+  {id:'tl', label:'Thassos Link',    cls:'co-tl', dot:'dot-tl'},
+  {id:'ts', label:'Thassos Seaways', cls:'co-ts', dot:'dot-ts'},
+  {id:'af', label:'Aneth Ferries',   cls:'co-af', dot:'dot-af'},
 ];
 
-let direction = 'keramoti';
+function getCompany(slotIdx, dayOffset) {
+  return COS[(slotIdx + dayOffset) % 4];
+}
 
-function toMins(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
-function nowMins(){const n=new Date();return n.getHours()*60+n.getMinutes();}
-function toHuman(m){
+// Εβδομάδα
+const WEEK = [
+  {d:'ΔΕΥ', n:'20', full:'Δευτέρα 20/4'},
+  {d:'ΤΡΙ', n:'21', full:'Τρίτη 21/4'},
+  {d:'ΤΕΤ', n:'22', full:'Τετάρτη 22/4'},
+  {d:'ΠΕΜ', n:'23', full:'Πέμπτη 23/4'},
+  {d:'ΠΑΡ', n:'24', full:'Παρασκευή 24/4'},
+  {d:'ΣΑΒ', n:'25', full:'Σάββατο 25/4'},
+  {d:'ΚΥΡ', n:'26', full:'Κυριακή 26/4'},
+];
+
+// Σήμερα: Τετάρτη 22/4 = index 2
+const TODAY_IDX = 2;
+
+// ══ STATE ═══════════════════════════════════════════════════════════
+let dir = 'k';
+let selDay = TODAY_IDX;
+
+// ══ HELPERS ══════════════════════════════════════════════════════════
+function toM(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
+function nowM(){const n=new Date();return n.getHours()*60+n.getMinutes();}
+function fmt(m){
   if(m<1)return'Τώρα!';
   if(m<60)return m+'λ';
   const h=Math.floor(m/60),r=m%60;
-  return r>0?h+'ω '+r+'λ':h+'ω';
+  return r?h+'ω '+r+'λ':h+'ω';
+}
+function sched(){return dir==='k'?FROM_K:FROM_T;}
+
+// ══ RENDER DAYS ═════════════════════════════════════════════════════
+function renderDays(){
+  document.getElementById('days').innerHTML = WEEK.map((w,i)=>`
+    <button class="day-btn ${i===TODAY_IDX?'today':''} ${i===selDay?'on':''}" onclick="selDay=${i};render()">
+      <span class="dname">${i===TODAY_IDX?'ΣΗΜΕΡΑ':w.d}</span>
+      <span class="dnum">${w.n}</span>
+    </button>
+  `).join('');
 }
 
+// ══ RENDER ═══════════════════════════════════════════════════════════
 function render(){
-  const sched = direction==='keramoti'?FROM_KERAMOTI:FROM_THASSOS;
-  const now = nowMins();
-  const nextIdx = sched.findIndex(t=>toMins(t)>now);
+  renderDays();
+  const s = sched();
+  const isToday = selDay === TODAY_IDX;
+  const now = isToday ? nowM() : -1; // if not today, show all
 
-  document.getElementById('btn-ker').classList.toggle('active',direction==='keramoti');
-  document.getElementById('btn-tha').classList.toggle('active',direction==='thassos');
-  document.getElementById('listLabel').textContent =
-    direction==='keramoti'?'Αναχωρήσεις από Κεραμωτή':'Αναχωρήσεις από Λιμένα Θάσου';
+  // Find next (only relevant for today)
+  const nextIdx = isToday ? s.findIndex(t=>toM(t)>now) : 0;
+  const startIdx = isToday ? Math.max(nextIdx, 0) : 0;
 
-  if(nextIdx>=0){
-    const t=sched[nextIdx];
-    document.getElementById('nextTime').textContent=t;
-    document.getElementById('countdown').textContent='σε '+toHuman(toMins(t)-now);
-    document.getElementById('nextRoute').textContent=
-      direction==='keramoti'?'🚢 Κεραμωτή → Λιμένας Θάσου · ~35 λεπτά':'🚢 Λιμένας Θάσου → Κεραμωτή · ~35 λεπτά';
-    document.getElementById('upcomingRow').innerHTML=
-      sched.slice(nextIdx+1,nextIdx+4).map(x=>`<div class="upcoming-pill">${x}</div>`).join('');
+  // Direction buttons
+  document.getElementById('btn-k').classList.toggle('on', dir==='k');
+  document.getElementById('btn-t').classList.toggle('on', dir==='t');
+  document.getElementById('listLbl').textContent =
+    dir==='k' ? 'Αναχωρήσεις από Κεραμωτή' : 'Αναχωρήσεις από Λιμένα Θάσου';
+
+  // Next card
+  const routeTxt = dir==='k'
+    ? '🚢 Κεραμωτή → Λιμένας Θάσου · ~35 λεπτά'
+    : '🚢 Λιμένας Θάσου → Κεραμωτή · ~35 λεπτά';
+
+  if(isToday && nextIdx >= 0){
+    const t = s[nextIdx];
+    const co = getCompany(nextIdx, selDay);
+    document.getElementById('nxtTime').textContent = t;
+    document.getElementById('nxtCd').textContent = 'σε ' + fmt(toM(t)-now);
+    document.getElementById('nxtCo').innerHTML = `<span class="co-tag ${co.cls}">${co.label}</span>`;
+    document.getElementById('nxtRoute').textContent = routeTxt;
+    document.getElementById('nxtUp').innerHTML =
+      s.slice(nextIdx+1,nextIdx+4).map(x=>`<div class="up-pill">${x}</div>`).join('');
+  } else if(!isToday){
+    document.getElementById('nxtTime').innerHTML = `<span style="font-family:var(--serif);font-size:28px;font-style:italic;color:rgba(255,255,255,.6)">${WEEK[selDay].full}</span>`;
+    document.getElementById('nxtCd').textContent = 'πρώτο στις '+s[0];
+    document.getElementById('nxtCo').innerHTML = '';
+    document.getElementById('nxtRoute').textContent = routeTxt;
+    document.getElementById('nxtUp').innerHTML =
+      s.slice(0,4).map(x=>`<div class="up-pill">${x}</div>`).join('');
   } else {
-    document.getElementById('nextTime').textContent='—';
-    document.getElementById('countdown').textContent='Τέλος';
-    document.getElementById('nextRoute').textContent='Αύριο ξεκινά στις 04:30';
-    document.getElementById('upcomingRow').innerHTML='';
+    document.getElementById('nxtTime').innerHTML = `<span style="font-family:var(--serif);font-size:36px;font-style:italic;color:rgba(255,255,255,.5)">Τέλος</span>`;
+    document.getElementById('nxtCd').textContent = 'αύριο 04:30';
+    document.getElementById('nxtCo').innerHTML = '';
+    document.getElementById('nxtRoute').textContent = 'Δεν υπάρχουν άλλα δρομολόγια σήμερα.';
+    document.getElementById('nxtUp').innerHTML = '';
   }
 
-  document.getElementById('ferryList').innerHTML=sched.map((t,i)=>{
-    const m=toMins(t),isPast=m<=now,isNext=i===nextIdx;
-    const co=COS[i%4];
-    const mins=!isPast?toMins(t)-now:null;
-    return`<div class="ferry-row ${isPast?'past':''} ${isNext?'next-up':''}">
-      <span class="ferry-time">${t}</span>
-      <span class="ferry-company ${co.cls}">${co.label}</span>
-      ${mins!==null?`<span class="ferry-mins">${toHuman(mins)}</span>`:''}
+  // Ferry list — ΜΟΝΟ από το επόμενο και μετά (χωρίς παρελθόν)
+  const upcoming = s.slice(startIdx);
+  if(upcoming.length === 0){
+    document.getElementById('flist').innerHTML =
+      `<div class="empty-day">Δεν υπάρχουν άλλα δρομολόγια σήμερα.</div>`;
+    return;
+  }
+
+  document.getElementById('flist').innerHTML = upcoming.map((t,i)=>{
+    const absIdx = startIdx + i;
+    const isNext = isToday && absIdx === nextIdx;
+    const minsAway = isToday ? toM(t) - now : null;
+    const co = getCompany(absIdx, selDay);
+    return `<div class="frow ${isNext?'nxt-up-row':''}">
+      <span class="ftime">${t}</span>
+      <span class="fco"><span class="co-tag ${co.cls}">${co.label}</span></span>
+      ${minsAway!==null?`<span class="fmins">${fmt(minsAway)}</span>`:''}
     </div>`;
   }).join('');
 }
 
-function setDir(d){direction=d;render();}
-function swapDir(){direction=direction==='keramoti'?'thassos':'keramoti';render();}
+// ══ ACTIONS ══════════════════════════════════════════════════════════
+function setDir(d){dir=d;render();}
+function swapDir(){dir=dir==='k'?'t':'k';render();}
 
-document.querySelectorAll('.nav-tab').forEach(btn=>{
+document.querySelectorAll('.tab').forEach(btn=>{
   btn.addEventListener('click',function(){
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-    document.getElementById('panel-'+this.dataset.panel).classList.add('active');
-    this.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+    document.getElementById('panel-'+this.dataset.p).classList.add('on');
+    this.classList.add('on');
   });
 });
 
 render();
-setInterval(render,30000);
+setInterval(()=>{if(selDay===TODAY_IDX)render();},30000);
 </script>
 </body>
 </html>
