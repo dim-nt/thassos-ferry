@@ -3,777 +3,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Θάσος · Δρομολόγια Πορθμείου</title>
+<title>Δρομολόγια Θάσος | Κεραμωτή–Θάσος Ferry</title>
+<meta name="description" content="Δρομολόγια πορθμείου Κεραμωτή–Θάσος σε real-time. Επόμενο πλοίο, ωράρια εβδομάδας, τιμές εισιτηρίων 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0d1b2a;
-    --deep: #111d2b;
-    --ocean: #1a3a5c;
-    --tide: #2563a8;
-    --foam: #e8f0f7;
-    --sand: #f0e6d3;
-    --amber: #e8a930;
-    --coral: #e05c3a;
-    --cream: #faf7f2;
-    --muted: #5a7899;
-    --mono: 'DM Mono', monospace;
-    --serif: 'Cormorant Garamond', serif;
-    --sans: 'Outfit', sans-serif;
-  }
+:root {
+  --sea:#0c4a6e;--sea-mid:#0369a1;--sea-lite:#e0f2fe;
+  --sand:#fdf6ec;--sand2:#f5e8d0;--sand3:#e8d5b0;
+  --white:#fffdf9;--ink:#1a1a1a;--mid:#4a5568;--muted:#8a9bb0;
+  --amber:#b45309;--amber2:#fef3c7;--green:#166534;--green2:#dcfce7;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--sand);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* HEADER */
+.site-header{background:var(--sea);padding:28px 20px 0;position:relative;overflow:hidden;}
+.site-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 100% 70% at 100% 100%,rgba(186,148,80,.15) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 0% 0%,rgba(255,255,255,.04) 0%,transparent 50%);pointer-events:none;}
+.header-inner{max-width:520px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:6px;}
+.site-title{font-family:var(--serif);font-size:clamp(32px,8vw,48px);font-weight:400;color:#fff;line-height:1.08;letter-spacing:-.01em;}
+.site-title em{font-style:italic;color:rgba(255,255,255,.5);}
+.header-meta{margin-top:10px;font-size:12px;color:rgba(255,255,255,.45);font-weight:300;}
 
-  body {
-    background: var(--navy);
-    color: var(--foam);
-    font-family: var(--sans);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+/* NAV TABS */
+.nav-tabs{display:flex;gap:2px;margin-top:20px;border-bottom:1px solid rgba(255,255,255,.1);}
+.nav-tab{background:none;border:none;color:rgba(255,255,255,.45);font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 16px 11px;cursor:pointer;transition:color .2s;position:relative;letter-spacing:.01em;}
+.nav-tab.active{color:#fff;}
+.nav-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:#f59e0b;border-radius:1px 1px 0 0;}
 
-  /* BACKGROUND */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(37,99,168,0.35) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(26,58,92,0.5) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
-  }
+/* CURVE */
+.curve{background:var(--sea);height:32px;position:relative;}
+.curve::after{content:'';position:absolute;bottom:0;left:0;right:0;height:32px;background:var(--sand);border-radius:24px 24px 0 0;}
 
-  .wave-bg {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    height: 300px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='rgba(26,58,92,0.15)' d='M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z'/%3E%3C/svg%3E") bottom/cover no-repeat;
-    pointer-events: none;
-    z-index: 0;
-    animation: waveFlow 8s ease-in-out infinite alternate;
-  }
+/* MAIN */
+.main{max-width:520px;margin:0 auto;padding:0 16px 80px;}
+.panel{display:none;}.panel.active{display:block;}
 
-  @keyframes waveFlow {
-    from { transform: translateX(-20px); }
-    to { transform: translateX(20px); }
-  }
+/* DIRECTION */
+.direction{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:16px 0 14px;}
+.dir-btn{background:#fff;border:1.5px solid var(--sand3);border-radius:14px;padding:12px 10px;font-family:var(--sans);font-size:12px;font-weight:500;color:var(--mid);cursor:pointer;transition:all .22s ease;text-align:center;line-height:1.4;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.dir-btn strong{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.dir-btn small{font-size:10px;font-weight:300;color:var(--muted);font-family:var(--mono);letter-spacing:.04em;}
+.dir-btn.active{background:var(--sea);border-color:var(--sea);box-shadow:0 4px 18px rgba(12,74,110,.28);}
+.dir-btn.active strong,.dir-btn.active small{color:rgba(255,255,255,.9);}
+.swap-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--sand3);background:#fff;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--sea);transition:transform .35s ease,background .2s;box-shadow:0 1px 4px rgba(0,0,0,.06);flex-shrink:0;}
+.swap-btn:hover{transform:rotate(180deg);background:var(--sea-lite);}
 
-  /* LAYOUT */
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 20px 80px;
-  }
+/* NEXT CARD */
+.next-card{background:linear-gradient(150deg,var(--sea) 0%,#075985 100%);border-radius:22px;padding:22px 22px 20px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 8px 30px rgba(12,74,110,.22);}
+.next-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
+.next-label{font-family:var(--mono);font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:7px;margin-bottom:14px;}
+.pulse{width:6px;height:6px;border-radius:50%;background:#f59e0b;display:inline-block;animation:pulse 2.2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);}}
+.next-time-row{display:flex;align-items:flex-end;gap:14px;margin-bottom:6px;position:relative;z-index:1;}
+.next-time{font-family:var(--serif);font-size:clamp(54px,14vw,76px);font-weight:400;color:#fff;line-height:1;letter-spacing:-.02em;}
+.countdown{background:rgba(245,158,11,.18);border:1px solid rgba(245,158,11,.35);border-radius:10px;padding:6px 12px;font-family:var(--mono);font-size:13px;color:#fbbf24;margin-bottom:6px;white-space:nowrap;}
+.next-route{font-size:12px;color:rgba(255,255,255,.5);font-weight:300;position:relative;z-index:1;padding-top:12px;border-top:1px solid rgba(255,255,255,.08);margin-top:10px;}
+.upcoming-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;position:relative;z-index:1;}
+.upcoming-pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:4px 10px;font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.6);}
 
-  /* HEADER */
-  header {
-    text-align: center;
-    padding: 48px 0 32px;
-    animation: fadeDown 0.8s ease both;
-  }
+/* WEEK BADGE */
+.week-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber2);border:1px solid rgba(180,83,9,.15);border-radius:10px;padding:7px 14px;font-size:12px;color:var(--amber);font-weight:500;margin-bottom:14px;}
 
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* SECTION HDR */
+.section-hdr{display:flex;align-items:center;gap:10px;margin:20px 0 10px;}
+.section-hdr span{font-family:var(--mono);font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.section-hdr::after{content:'';flex:1;height:1px;background:var(--sand3);}
 
-  .route-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 10px;
-    display: block;
-  }
+/* FERRY ROWS */
+.ferry-list{display:flex;flex-direction:column;gap:5px;}
+.ferry-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:#fff;border-radius:12px;border:1px solid var(--sand2);transition:all .18s ease;cursor:default;}
+.ferry-row:hover{border-color:var(--sand3);box-shadow:0 2px 12px rgba(0,0,0,.06);transform:translateX(2px);}
+.ferry-row.past{background:transparent;border-color:transparent;opacity:.32;}
+.ferry-row.next-up{background:var(--sea-lite);border-color:rgba(12,74,110,.3);}
+.ferry-time{font-family:var(--mono);font-size:19px;font-weight:400;color:var(--ink);min-width:62px;letter-spacing:.02em;}
+.ferry-row.next-up .ferry-time{color:var(--sea);font-weight:600;}
+.ferry-row.past .ferry-time{color:var(--muted);}
+.ferry-company{flex:1;font-size:11px;font-weight:500;padding:2px 8px;border-radius:6px;letter-spacing:.02em;display:inline-block;}
+.co-tf{background:rgba(12,74,110,.1);color:#0c4a6e;}
+.co-tl{background:rgba(180,83,9,.1);color:#b45309;}
+.co-ts{background:rgba(22,101,52,.1);color:#166534;}
+.co-af{background:rgba(109,40,217,.1);color:#6d28d9;}
+.ferry-mins{font-family:var(--mono);font-size:11px;color:#f59e0b;white-space:nowrap;}
+.ferry-row.past .ferry-mins{display:none;}
+.no-more{text-align:center;padding:28px;font-family:var(--serif);font-size:18px;font-style:italic;color:var(--muted);}
 
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(38px, 8vw, 60px);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--cream);
-  }
+/* PRICES */
+.prices-panel{padding-top:8px;}
+.price-section{background:#fff;border-radius:16px;border:1px solid var(--sand2);overflow:hidden;margin-bottom:14px;}
+.price-section-hdr{background:var(--sea);padding:12px 18px;font-family:var(--sans);font-size:12px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.05em;text-transform:uppercase;}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:11px 18px;border-bottom:1px solid var(--sand2);font-size:14px;}
+.price-row:last-of-type{border-bottom:none;}
+.price-cat{color:var(--mid);font-weight:300;}
+.price-val{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:600;}
+.price-note{font-size:12px;color:var(--muted);padding:10px 18px 14px;font-style:italic;font-weight:300;line-height:1.5;}
+.discount-box{background:var(--green2);border:1px solid rgba(22,101,52,.15);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+.discount-box h4{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.discount-box ul{list-style:none;}
+.discount-box li{font-size:13px;color:#166534;font-weight:300;padding:3px 0;display:flex;gap:8px;line-height:1.5;}
+.discount-box li::before{content:'↳';color:var(--green);}
+.tip-box{background:var(--amber2);border:1px solid rgba(180,83,9,.12);border-radius:12px;padding:14px 16px;margin-bottom:14px;}
+.tip-box h4{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+.tip-box ul{list-style:none;}
+.tip-box li{font-size:13px;color:#92400e;font-weight:300;padding:3px 0;display:flex;gap:8px;line-height:1.5;}
+.tip-box li::before{content:'•';color:var(--amber);}
 
-  h1 em {
-    font-style: italic;
-    color: var(--sand);
-  }
+/* INFO */
+.info-panel{padding-top:8px;}
+.info-card{background:#fff;border-radius:16px;border:1px solid var(--sand2);padding:18px;margin-bottom:12px;}
+.info-card h3{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--ink);margin-bottom:10px;}
+.info-card p{font-size:13px;color:var(--mid);font-weight:300;line-height:1.6;margin-bottom:8px;}
+.company-list{list-style:none;margin-top:8px;}
+.company-list li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--sand2);font-size:13px;}
+.company-list li:last-child{border-bottom:none;}
+.co-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dot-tf{background:#0c4a6e;}.dot-tl{background:#b45309;}.dot-ts{background:#166534;}.dot-af{background:#6d28d9;}
+.company-list .name{font-weight:500;flex:1;color:var(--ink);}
+.company-list .phone{font-family:var(--mono);font-size:12px;color:var(--muted);text-decoration:none;}
+.company-list .phone:hover{color:var(--sea);}
 
-  .subtitle {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 8px;
-    font-weight: 300;
-    letter-spacing: 0.04em;
-  }
+/* FOOTER */
+.site-footer{text-align:center;padding:28px 16px 20px;font-size:11px;color:var(--muted);letter-spacing:.04em;max-width:520px;margin:0 auto;line-height:1.8;}
+.site-footer a{color:var(--muted);text-decoration:none;}
+.site-footer a:hover{color:var(--sea);}
 
-  /* DIRECTION TOGGLE */
-  .direction-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin: 32px auto 24px;
-    animation: fadeUp 0.8s ease 0.2s both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .dir-btn {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--muted);
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 500;
-    padding: 10px 22px;
-    border-radius: 40px;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    letter-spacing: 0.02em;
-  }
-
-  .dir-btn.active {
-    background: var(--tide);
-    border-color: var(--tide);
-    color: white;
-    box-shadow: 0 4px 20px rgba(37,99,168,0.4);
-  }
-
-  .dir-btn:hover:not(.active) {
-    border-color: rgba(255,255,255,0.3);
-    color: var(--foam);
-  }
-
-  .swap-icon {
-    color: var(--amber);
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform 0.4s ease;
-    user-select: none;
-  }
-
-  .swap-icon:hover { transform: rotate(180deg); }
-
-  /* NEXT DEPARTURE CARD */
-  .next-card {
-    background: linear-gradient(135deg, rgba(37,99,168,0.3) 0%, rgba(26,58,92,0.4) 100%);
-    border: 1px solid rgba(37,99,168,0.4);
-    border-radius: 20px;
-    padding: 28px 32px;
-    margin-bottom: 24px;
-    backdrop-filter: blur(10px);
-    animation: fadeUp 0.8s ease 0.3s both;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .next-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--amber), transparent);
-  }
-
-  .next-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .pulse-dot {
-    width: 6px; height: 6px;
-    background: var(--amber);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-    display: inline-block;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-
-  .next-time-row {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 8px;
-  }
-
-  .next-time {
-    font-family: var(--serif);
-    font-size: clamp(52px, 12vw, 76px);
-    font-weight: 300;
-    color: var(--cream);
-    line-height: 1;
-    letter-spacing: -0.02em;
-  }
-
-  .countdown-badge {
-    background: rgba(232,169,48,0.15);
-    border: 1px solid rgba(232,169,48,0.3);
-    border-radius: 8px;
-    padding: 6px 12px;
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--amber);
-    white-space: nowrap;
-  }
-
-  .next-operator {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 300;
-    letter-spacing: 0.04em;
-  }
-
-  .next-route {
-    font-size: 13px;
-    color: rgba(232,240,247,0.6);
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255,255,255,0.07);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .upcoming-strip {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-
-  .upcoming-pill {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 5px 11px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  .upcoming-pill.soon {
-    border-color: rgba(37,99,168,0.4);
-    color: var(--foam);
-  }
-
-  /* DATE BAR */
-  .date-bar {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding: 4px 0 12px;
-    scrollbar-width: none;
-    animation: fadeUp 0.8s ease 0.4s both;
-    margin-bottom: 12px;
-  }
-
-  .date-bar::-webkit-scrollbar { display: none; }
-
-  .date-chip {
-    flex: 0 0 auto;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
-    padding: 8px 14px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
-    min-width: 64px;
-  }
-
-  .date-chip.active {
-    background: rgba(37,99,168,0.35);
-    border-color: var(--tide);
-  }
-
-  .date-chip.today .chip-day { color: var(--amber); }
-
-  .chip-day {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: block;
-  }
-
-  .chip-date {
-    font-family: var(--serif);
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--cream);
-    display: block;
-    line-height: 1.1;
-  }
-
-  /* SCHEDULE LIST */
-  .schedule-list {
-    animation: fadeUp 0.8s ease 0.5s both;
-  }
-
-  .section-divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 20px 0 12px;
-  }
-
-  .section-divider span {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.3em;
-    color: var(--muted);
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .section-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(255,255,255,0.08);
-  }
-
-  .ferry-row {
-    display: flex;
-    align-items: center;
-    padding: 13px 16px;
-    border-radius: 12px;
-    margin-bottom: 6px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.2s ease;
-    cursor: default;
-  }
-
-  .ferry-row:hover {
-    background: rgba(37,99,168,0.12);
-    border-color: rgba(37,99,168,0.3);
-    transform: translateX(2px);
-  }
-
-  .ferry-row.past {
-    opacity: 0.35;
-  }
-
-  .ferry-row.next-up {
-    background: rgba(37,99,168,0.2);
-    border-color: rgba(37,99,168,0.5);
-  }
-
-  .ferry-row.next-up .ferry-time {
-    color: white;
-  }
-
-  .ferry-time {
-    font-family: var(--mono);
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--foam);
-    min-width: 70px;
-  }
-
-  .ferry-operator {
-    flex: 1;
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 300;
-    letter-spacing: 0.03em;
-    padding-left: 14px;
-  }
-
-  .operator-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-family: var(--mono);
-    letter-spacing: 0.05em;
-    background: rgba(255,255,255,0.06);
-    color: var(--muted);
-  }
-
-  .operator-badge.thassos { background: rgba(37,99,168,0.2); color: #7ab3e0; }
-  .operator-badge.link { background: rgba(232,169,48,0.15); color: #e8c67a; }
-  .operator-badge.seaways { background: rgba(26,180,160,0.15); color: #5ecfc4; }
-  .operator-badge.aneth { background: rgba(224,92,58,0.15); color: #e09070; }
-
-  .ferry-mins {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--amber);
-    white-space: nowrap;
-  }
-
-  .ferry-row.past .ferry-mins { display: none; }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 40px 0 20px;
-    font-size: 11px;
-    color: rgba(90,120,153,0.6);
-    letter-spacing: 0.05em;
-    position: relative;
-    z-index: 1;
-  }
-
-  footer a { color: var(--muted); text-decoration: none; }
-  footer a:hover { color: var(--amber); }
-
-  /* NO MORE */
-  .no-more {
-    text-align: center;
-    padding: 30px;
-    font-family: var(--serif);
-    font-size: 18px;
-    font-style: italic;
-    color: var(--muted);
-  }
-
-  @media (max-width: 400px) {
-    .next-card { padding: 20px; }
-    .ferry-time { font-size: 18px; min-width: 58px; }
-  }
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.next-card{animation:fadeUp .5s ease both;}
+.ferry-list{animation:fadeUp .5s ease .1s both;}
+@media(max-width:360px){.ferry-time{font-size:17px;min-width:54px;}.next-time{font-size:50px;}}
 </style>
 </head>
 <body>
-<div class="wave-bg"></div>
-<div class="container">
 
-  <header>
-    <span class="route-label">Πορθμείο · Ferry Service</span>
-    <h1>Κεραμωτή <em>↔</em><br>Θάσος</h1>
-    <p class="subtitle">Λιμένας Θάσου · Εβδομαδιαία δρομολόγια</p>
-  </header>
+<header class="site-header">
+  <div class="header-inner">
+    <span class="eyebrow">Πορθμείο · Ferry Service · 2026</span>
+    <h1 class="site-title">Κεραμωτή<br><em>↔ Θάσος</em></h1>
+    <p class="header-meta">Λιμένας Θάσου · ~35 λεπτά διάπλους</p>
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-panel="schedule">🕐 Δρομολόγια</button>
+      <button class="nav-tab" data-panel="prices">🎫 Τιμές</button>
+      <button class="nav-tab" data-panel="info">ℹ️ Πληροφορίες</button>
+    </nav>
+  </div>
+</header>
 
-  <!-- DIRECTION TOGGLE -->
-  <div class="direction-toggle">
-    <button class="dir-btn active" id="btnKeramoti" onclick="setDirection('keramoti')">
-      🚢 Κεραμωτή → Θάσος
-    </button>
-    <span class="swap-icon" onclick="swapDirection()">⇄</span>
-    <button class="dir-btn" id="btnThassos" onclick="setDirection('thassos')">
-      Θάσος → Κεραμωτή
-    </button>
+<div class="curve"></div>
+
+<main class="main">
+
+  <!-- SCHEDULE -->
+  <div class="panel active" id="panel-schedule">
+    <div class="direction">
+      <button class="dir-btn active" id="btn-ker" onclick="setDir('keramoti')">
+        <strong>Κεραμωτή</strong>
+        <small>→ Λιμένας</small>
+      </button>
+      <button class="swap-btn" onclick="swapDir()">⇄</button>
+      <button class="dir-btn" id="btn-tha" onclick="setDir('thassos')">
+        <strong>Θάσος</strong>
+        <small>→ Κεραμωτή</small>
+      </button>
+    </div>
+
+    <div class="week-badge">📅 Ισχύει 20–26 Απριλίου 2026</div>
+
+    <div class="next-card">
+      <div class="next-label"><span class="pulse"></span>Επόμενο δρομολόγιο</div>
+      <div class="next-time-row">
+        <div class="next-time" id="nextTime">--:--</div>
+        <div class="countdown" id="countdown">--</div>
+      </div>
+      <div class="next-route" id="nextRoute"></div>
+      <div class="upcoming-row" id="upcomingRow"></div>
+    </div>
+
+    <div class="section-hdr"><span id="listLabel">Αναχωρήσεις από Κεραμωτή</span></div>
+    <div class="ferry-list" id="ferryList"></div>
   </div>
 
-  <!-- NEXT DEPARTURE CARD -->
-  <div class="next-card">
-    <div class="next-label">
-      <span class="pulse-dot"></span>
-      Επόμενο δρομολόγιο
+  <!-- PRICES -->
+  <div class="panel" id="panel-prices">
+    <div class="prices-panel">
+      <div class="section-hdr" style="margin-top:16px"><span>Κεραμωτή — Λιμένας Θάσου</span></div>
+
+      <div class="price-section">
+        <div class="price-section-hdr">🧍 Επιβάτες</div>
+        <div class="price-row"><span class="price-cat">Ενήλικας</span><span class="price-val">6,00€</span></div>
+        <div class="price-row"><span class="price-cat">Παιδί 5–10 ετών</span><span class="price-val">3,00€</span></div>
+        <div class="price-row"><span class="price-cat">Παιδί έως 5 ετών</span><span class="price-val">Δωρεάν</span></div>
+        <div class="price-row"><span class="price-cat">Γκρουπ (ανά άτομο)</span><span class="price-val">4,00€</span></div>
+      </div>
+
+      <div class="price-section">
+        <div class="price-section-hdr">🚗 Οχήματα</div>
+        <div class="price-row"><span class="price-cat">Αυτοκίνητο έως 4,25μ</span><span class="price-val">21–22€</span></div>
+        <div class="price-row"><span class="price-cat">Αυτοκίνητο άνω 4,25μ</span><span class="price-val">26–27€</span></div>
+        <div class="price-row"><span class="price-cat">Μοτοσυκλέτα έως 250cc</span><span class="price-val">5–6€</span></div>
+        <div class="price-row"><span class="price-cat">Μοτοσυκλέτα άνω 250cc</span><span class="price-val">6–7€</span></div>
+        <div class="price-row"><span class="price-cat">Ποδήλατο</span><span class="price-val">3,00€</span></div>
+        <p class="price-note">* Ελαφρές διαφορές μεταξύ εταιρειών. Εισιτήρια μόνο στο εκδοτήριο του λιμανιού — δεν υπάρχει online αγορά.</p>
+      </div>
+
+      <div class="discount-box">
+        <h4>🎫 Εκπτώσεις</h4>
+        <ul>
+          <li>Πολύτεκνοι / Τρίτεκνοι: <strong>50%</strong> (ΑΝΕΘ + Thassos Link)</li>
+          <li>ΑμεΑ (αναπηρία 60%+): <strong>50%</strong> (ΑΝΕΘ)</li>
+        </ul>
+      </div>
+
+      <div class="tip-box">
+        <h4>💡 Χρήσιμα tips</h4>
+        <ul>
+          <li>Αποδεκτές χρεωστικές &amp; πιστωτικές κάρτες σε όλα τα εκδοτήρια.</li>
+          <li>Με αυτοκίνητο: προσέλευση <strong>30–45 λεπτά νωρίτερα</strong>.</li>
+          <li>Δεν εκδίδονται εισιτήρια aller-retour — ξεχωριστό από κάθε λιμάνι.</li>
+        </ul>
+      </div>
     </div>
-    <div class="next-time-row">
-      <div class="next-time" id="nextTime">--:--</div>
-      <div class="countdown-badge" id="countdown">--</div>
-    </div>
-    <div class="next-operator" id="nextOperator"></div>
-    <div class="next-route" id="nextRoute"></div>
-    <div class="upcoming-strip" id="upcomingStrip"></div>
   </div>
 
-  <!-- DATE BAR -->
-  <div class="date-bar" id="dateBar"></div>
+  <!-- INFO -->
+  <div class="panel" id="panel-info">
+    <div class="info-panel">
+      <div class="info-card" style="margin-top:16px">
+        <h3>Η διαδρομή</h3>
+        <p>Η γραμμή <strong>Κεραμωτή–Λιμένας Θάσου</strong> είναι η κύρια σύνδεση του νησιού με την ηπειρωτική χώρα. Λειτουργεί 365 ημέρες το χρόνο.</p>
+        <p>Διάπλους: ~35 λεπτά. Αεροδρόμιο Καβάλας (KVA): 12 χλμ από Κεραμωτή.</p>
+      </div>
 
-  <!-- SCHEDULE LIST -->
-  <div class="schedule-list" id="scheduleList"></div>
+      <div class="info-card">
+        <h3>Ναυτιλιακές εταιρείες</h3>
+        <ul class="company-list">
+          <li><span class="co-dot dot-tf"></span><span class="name">Thassos Ferries (ΑΝΕΘ)</span><a href="tel:+302593024001" class="phone">25930 24001</a></li>
+          <li><span class="co-dot dot-tl"></span><span class="name">Thassos Link</span><a href="tel:+306973404079" class="phone">6973 404079</a></li>
+          <li><span class="co-dot dot-ts"></span><span class="name">Thassos Seaways</span><a href="tel:+302104657211" class="phone">210 4657211</a></li>
+          <li><span class="co-dot dot-af"></span><span class="name">Aneth Ferries</span><a href="tel:+302593022318" class="phone">25930 22318</a></li>
+        </ul>
+      </div>
 
-</div>
+      <div class="info-card">
+        <h3>Για τα δρομολόγια</h3>
+        <p>Οι ώρες <strong>παραμένουν ίδιες κάθε ημέρα</strong> (Δευ–Κυρ). Αλλάζει μόνο ποια εταιρεία εκτελεί κάθε δρομολόγιο — οι 4 εταιρείες εναλλάσσονται.</p>
+        <p>Το πρόγραμμα ενημερώνεται <strong>κάθε Κυριακή</strong> για την επόμενη εβδομάδα.</p>
+      </div>
+    </div>
+  </div>
 
-<footer>
-  Πηγή: <a href="https://www.thassoslines.gr" target="_blank">thassoslines.gr</a> · Εβδομάδα 13–19 Απρ 2026
+</main>
+
+<footer class="site-footer">
+  Πηγή: <a href="https://anethferries.gr" target="_blank">anethferries.gr</a> · <a href="https://www.thassoslines.gr" target="_blank">thassoslines.gr</a><br>
+  Δεν φέρουμε ευθύνη για αλλαγές. Για επιβεβαίωση επικοινωνήστε με τις εταιρείες.
 </footer>
 
 <script>
-// ─── DATA ─────────────────────────────────────────────────────────────────────
-const DAYS = [
-  { label: 'ΔΕΥ', date: '13/4', full: 'Δευτέρα 13 Απρ' },
-  { label: 'ΤΡΙ', date: '14/4', full: 'Τρίτη 14 Απρ' },
-  { label: 'ΤΕΤ', date: '15/4', full: 'Τετάρτη 15 Απρ' },
-  { label: 'ΠΕΜ', date: '16/4', full: 'Πέμπτη 16 Απρ' },
-  { label: 'ΠΑΡ', date: '17/4', full: 'Παρασκευή 17 Απρ' },
-  { label: 'ΣΑΒ', date: '18/4', full: 'Σάββατο 18 Απρ' },
-  { label: 'ΚΥΡ', date: '19/4', full: 'Κυριακή 19 Απρ' },
-];
-
-// Keramoti → Thassos (Limenas) times + operators per day
-// [Mon, Tue, Wed, Thu, Fri, Sat, Sun]
 const FROM_KERAMOTI = [
-  { time: '04:30', ops: ['TF','TF','TF','TF','TF','TF','TF'] },
-  { time: '05:00', ops: ['TF','TF','TF','TF','TF','TF','TF'] },
-  { time: '05:45', ops: ['TF','TF','TF','TF','TF','TF','TF'] },
-  { time: '06:15', ops: ['TF','TF','TF','TF','TF','TF','TL'] },
-  { time: '07:00', ops: ['TF','TF','TF','TF','TF','TF','TF'] },
-  { time: '07:30', ops: ['TF','TL','TF','TF','TF','TF','TF'] },
-  { time: '08:15', ops: ['TL','TF','TL','AF','TF','TF','TF'] },
-  { time: '08:45', ops: ['TF','TL','TF','TF','TL','TF','AF'] },
-  { time: '09:15', ops: ['AF','TF','TF','TL','TF','TF','AF'] },
-  { time: '09:45', ops: ['TF','AF','TF','TF','TL','TF','TF'] },
-  { time: '10:15', ops: ['TF','TF','AF','TL','TF','AF','TL'] },
-  { time: '10:45', ops: ['TL','TL','TF','TF','TF','TF','TF'] },
-  { time: '11:15', ops: ['TF','TF','TL','AF','AF','TF','TF'] },
-  { time: '11:45', ops: ['AF','TF','TF','TF','TF','TF','TS'] },
-  { time: '12:15', ops: ['TF','AF','TF','TF','TL','TF','TF'] },
-  { time: '12:45', ops: ['TF','TF','AF','TF','TF','TL','TF'] },
-  { time: '13:15', ops: ['TF','TF','TF','TL','TF','TF','TF'] },
-  { time: '13:45', ops: ['TL','TF','AF','TF','AF','TF','TS'] },
-  { time: '14:15', ops: ['TF','TL','TF','AF','TF','TS','TL'] },
-  { time: '14:45', ops: ['AF','TF','TL','TF','TF','TF','TF'] },
-  { time: '15:15', ops: ['TF','AF','TF','TF','TF','AF','TF'] },
-  { time: '16:00', ops: ['TF','TF','TF','TL','TL','TF','TF'] },
-  { time: '16:45', ops: ['TF','TF','AF','TF','TF','TS','AF'] },
-  { time: '17:30', ops: ['AF','AF','TF','AF','TF','TF','TF'] },
-  { time: '18:15', ops: ['TF','TF','TF','TF','TS','TF','TS'] },
-  { time: '19:00', ops: ['TF','TF','AF','TF','TF','AF','TL'] },
-  { time: '19:45', ops: ['TF','TL','TF','TF','TF','TF','AF'] },
-  { time: '20:30', ops: ['TF','TF','TL','TF','TF','TS','TF'] },
-  { time: '21:15', ops: ['TF','TF','AF','TL','TF','TF','TL'] },
-  { time: '22:30', ops: ['TF','AF','TF','TF','TL','TF','TF'] },
+  '04:30','05:00','05:45','06:15','07:00','07:30',
+  '08:15','08:45','09:15','09:45','10:15','10:45',
+  '11:15','11:45','12:15','12:45','13:15','13:45',
+  '14:15','14:45','15:15','16:00','16:45','17:30',
+  '18:15','19:00','19:45','20:30','21:15','22:30'
 ];
 
-// Thassos (Limenas) → Keramoti
 const FROM_THASSOS = [
-  { time: '04:30', ops: ['TF','TF','TS','TF','TF','AF','TF'] },
-  { time: '05:00', ops: ['AF','TF','TL','TS','AF','TF','TF'] },
-  { time: '05:45', ops: ['TF','AF','TF','TF','TF','TF','TF'] },
-  { time: '06:15', ops: ['TF','TF','TF','TF','TL','TF','TF'] },
-  { time: '07:00', ops: ['TL','TF','AF','TS','TF','AF','TF'] },
-  { time: '07:30', ops: ['AF','TL','TF','AF','TS','TS','AF'] },
-  { time: '08:00', ops: ['TS','TF','TL','TF','TF','TF','TS'] },
-  { time: '08:30', ops: ['TF','TS','AF','TL','TF','AF','TF'] },
-  { time: '09:00', ops: ['AF','TF','TS','TF','TL','TF','AF'] },
-  { time: '09:30', ops: ['TF','AF','TF','TF','AF','TL','TF'] },
-  { time: '10:00', ops: ['TL','TF','AF','TF','TF','AF','TL'] },
-  { time: '10:30', ops: ['TS','TL','TF','AF','TF','TF','AF'] },
-  { time: '11:00', ops: ['TF','TS','TL','TF','AF','TF','TS'] },
-  { time: '11:30', ops: ['AF','TF','TS','TL','TF','AF','TF'] },
-  { time: '12:00', ops: ['TF','AF','TF','TS','TL','TF','AF'] },
-  { time: '12:30', ops: ['AF','TF','AF','TF','TS','TL','TF'] },
-  { time: '13:00', ops: ['TS','AF','TF','AF','TF','TS','TL'] },
-  { time: '13:30', ops: ['TL','TS','AF','TF','AF','TF','TS'] },
-  { time: '14:00', ops: ['TF','TF','TS','TF','TF','AF','TF'] },
-  { time: '14:45', ops: ['AF','TF','TL','TF','AF','TF','AF'] },
-  { time: '15:30', ops: ['TF','AF','TF','TL','TF','TF','TF'] },
-  { time: '16:15', ops: ['TS','TF','AF','TF','TL','TS','AF'] },
-  { time: '17:00', ops: ['AF','TS','TF','AF','TF','TL','TF'] },
-  { time: '17:45', ops: ['TF','AF','TS','TF','AF','TF','TL'] },
-  { time: '18:30', ops: ['TL','TF','AF','TS','TF','AF','TF'] },
-  { time: '19:15', ops: ['AF','TL','TF','AF','TS','TF','AF'] },
-  { time: '20:00', ops: ['TS','AF','TL','TF','AF','TS','TF'] },
-  { time: '21:00', ops: ['TF','TS','AF','TL','TF','AF','TS'] },
-  { time: '21:45', ops: ['AF','TF','TS','AF','TL','TF','AF'] },
-  { time: '22:30', ops: ['TF','AF','TF','TS','TF','TL','TF'] },
+  '04:30','05:00','05:45','06:15','07:00','07:30',
+  '08:00','08:30','09:00','09:30','10:00','10:30',
+  '11:00','11:30','12:00','12:30','13:00','13:30',
+  '14:00','14:45','15:30','16:15','17:00','17:45',
+  '18:30','19:15','20:00','21:00','21:45','22:30'
 ];
 
-const OP_NAMES = {
-  TF: 'Thassos Ferries',
-  TL: 'Thassos Link',
-  TS: 'Thassos Seaways',
-  AF: 'Aneth Ferries'
-};
+// Οι εταιρείες εναλλάσσονται — εμφανίζουμε cycling ανά slot
+const COS = [
+  {label:'Thassos Ferries',cls:'co-tf'},
+  {label:'Thassos Link',   cls:'co-tl'},
+  {label:'Thassos Seaways',cls:'co-ts'},
+  {label:'Aneth Ferries',  cls:'co-af'},
+];
 
-const OP_CLASS = {
-  TF: 'thassos',
-  TL: 'link',
-  TS: 'seaways',
-  AF: 'aneth'
-};
+let direction = 'keramoti';
 
-// ─── STATE ────────────────────────────────────────────────────────────────────
-let direction = 'keramoti'; // 'keramoti' | 'thassos'
-let selectedDay = 1; // 0=Mon, 1=Tue(today), ...
-const TODAY_INDEX = 1; // Tuesday April 14
-
-// ─── HELPERS ──────────────────────────────────────────────────────────────────
-function timeToMins(t) {
-  const [h, m] = t.split(':').map(Number);
-  return h * 60 + m;
+function toMins(t){const[h,m]=t.split(':').map(Number);return h*60+m;}
+function nowMins(){const n=new Date();return n.getHours()*60+n.getMinutes();}
+function toHuman(m){
+  if(m<1)return'Τώρα!';
+  if(m<60)return m+'λ';
+  const h=Math.floor(m/60),r=m%60;
+  return r>0?h+'ω '+r+'λ':h+'ω';
 }
 
-function nowMins() {
-  const now = new Date();
-  return now.getHours() * 60 + now.getMinutes();
-}
-
-function minsToHuman(m) {
-  if (m < 1) return 'Τώρα!';
-  if (m < 60) return `${m} λεπτά`;
-  const h = Math.floor(m / 60), rem = m % 60;
-  return rem > 0 ? `${h}ω ${rem}λ` : `${h} ώρα${h>1?'ες':''}`;
-}
-
-function getSchedule() {
-  return direction === 'keramoti' ? FROM_KERAMOTI : FROM_THASSOS;
-}
-
-function getRouteText() {
-  return direction === 'keramoti'
-    ? '🚢 Κεραμωτή (Καβάλα) → Λιμένας Θάσου · ~35 λεπτά'
-    : '🚢 Λιμένας Θάσου → Κεραμωτή (Καβάλα) · ~35 λεπτά';
-}
-
-// ─── RENDER DATE BAR ──────────────────────────────────────────────────────────
-function renderDateBar() {
-  const bar = document.getElementById('dateBar');
-  bar.innerHTML = DAYS.map((d, i) => `
-    <div class="date-chip ${i === selectedDay ? 'active' : ''} ${i === TODAY_INDEX ? 'today' : ''}"
-         onclick="selectDay(${i})">
-      <span class="chip-day">${i === TODAY_INDEX ? 'ΣΗΜΕΡΑ' : d.label}</span>
-      <span class="chip-date">${d.date.split('/')[0]}</span>
-    </div>
-  `).join('');
-}
-
-// ─── RENDER SCHEDULE ─────────────────────────────────────────────────────────
-function renderSchedule() {
-  const list = document.getElementById('scheduleList');
-  const sched = getSchedule();
+function render(){
+  const sched = direction==='keramoti'?FROM_KERAMOTI:FROM_THASSOS;
   const now = nowMins();
-  const isToday = selectedDay === TODAY_INDEX;
+  const nextIdx = sched.findIndex(t=>toMins(t)>now);
 
-  // Find next departure index (for today)
-  let nextIdx = -1;
-  if (isToday) {
-    nextIdx = sched.findIndex(s => timeToMins(s.time) > now);
+  document.getElementById('btn-ker').classList.toggle('active',direction==='keramoti');
+  document.getElementById('btn-tha').classList.toggle('active',direction==='thassos');
+  document.getElementById('listLabel').textContent =
+    direction==='keramoti'?'Αναχωρήσεις από Κεραμωτή':'Αναχωρήσεις από Λιμένα Θάσου';
+
+  if(nextIdx>=0){
+    const t=sched[nextIdx];
+    document.getElementById('nextTime').textContent=t;
+    document.getElementById('countdown').textContent='σε '+toHuman(toMins(t)-now);
+    document.getElementById('nextRoute').textContent=
+      direction==='keramoti'?'🚢 Κεραμωτή → Λιμένας Θάσου · ~35 λεπτά':'🚢 Λιμένας Θάσου → Κεραμωτή · ~35 λεπτά';
+    document.getElementById('upcomingRow').innerHTML=
+      sched.slice(nextIdx+1,nextIdx+4).map(x=>`<div class="upcoming-pill">${x}</div>`).join('');
+  } else {
+    document.getElementById('nextTime').textContent='—';
+    document.getElementById('countdown').textContent='Τέλος';
+    document.getElementById('nextRoute').textContent='Αύριο ξεκινά στις 04:30';
+    document.getElementById('upcomingRow').innerHTML='';
   }
 
-  // Past / upcoming divider
-  let html = '';
-  let shownUpcoming = false;
+  document.getElementById('ferryList').innerHTML=sched.map((t,i)=>{
+    const m=toMins(t),isPast=m<=now,isNext=i===nextIdx;
+    const co=COS[i%4];
+    const mins=!isPast?toMins(t)-now:null;
+    return`<div class="ferry-row ${isPast?'past':''} ${isNext?'next-up':''}">
+      <span class="ferry-time">${t}</span>
+      <span class="ferry-company ${co.cls}">${co.label}</span>
+      ${mins!==null?`<span class="ferry-mins">${toHuman(mins)}</span>`:''}
+    </div>`;
+  }).join('');
+}
 
-  sched.forEach((slot, i) => {
-    const mins = timeToMins(slot.time);
-    const isPast = isToday && mins <= now;
-    const isNext = i === nextIdx;
-    const isUpcoming = isToday && !isPast;
-    const minsAway = isToday && !isPast ? mins - now : null;
+function setDir(d){direction=d;render();}
+function swapDir(){direction=direction==='keramoti'?'thassos':'keramoti';render();}
 
-    if (!isPast && !shownUpcoming && isToday) {
-      html += `<div class="section-divider"><span>Επόμενα δρομολόγια</span></div>`;
-      shownUpcoming = true;
-    } else if (i === 0 && !isToday) {
-      html += `<div class="section-divider"><span>${DAYS[selectedDay].full}</span></div>`;
-    }
-
-    const op = slot.ops[selectedDay];
-    html += `
-      <div class="ferry-row ${isPast ? 'past' : ''} ${isNext ? 'next-up' : ''}">
-        <span class="ferry-time">${slot.time}</span>
-        <span class="ferry-operator">
-          <span class="operator-badge ${OP_CLASS[op]}">${OP_NAMES[op]}</span>
-        </span>
-        ${minsAway !== null ? `<span class="ferry-mins">${minsToHuman(minsAway)}</span>` : ''}
-      </div>
-    `;
+document.querySelectorAll('.nav-tab').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+    document.getElementById('panel-'+this.dataset.panel).classList.add('active');
+    this.classList.add('active');
   });
+});
 
-  if (!shownUpcoming && isToday) {
-    html = `<div class="no-more">Δεν υπάρχουν άλλα δρομολόγια για σήμερα.</div>`;
-  }
-
-  list.innerHTML = html;
-}
-
-// ─── RENDER NEXT CARD ─────────────────────────────────────────────────────────
-function renderNextCard() {
-  const sched = getSchedule();
-  const now = nowMins();
-  const isToday = selectedDay === TODAY_INDEX;
-
-  let nextSlot = null, nextMins = null;
-
-  if (isToday) {
-    for (const s of sched) {
-      const m = timeToMins(s.time);
-      if (m > now) { nextSlot = s; nextMins = m - now; break; }
-    }
-  } else {
-    nextSlot = sched[0];
-  }
-
-  if (!nextSlot) {
-    document.getElementById('nextTime').textContent = '—';
-    document.getElementById('countdown').textContent = 'Τέλος';
-    document.getElementById('nextOperator').textContent = 'Αύριο ξεκινά στις 04:30';
-    document.getElementById('nextRoute').textContent = '';
-    document.getElementById('upcomingStrip').innerHTML = '';
-    return;
-  }
-
-  const op = nextSlot.ops[selectedDay];
-  document.getElementById('nextTime').textContent = nextSlot.time;
-  document.getElementById('nextOperator').textContent = OP_NAMES[op];
-  document.getElementById('nextRoute').textContent = getRouteText();
-
-  if (isToday && nextMins !== null) {
-    document.getElementById('countdown').textContent = `σε ${minsToHuman(nextMins)}`;
-  } else {
-    document.getElementById('countdown').textContent = DAYS[selectedDay].full;
-  }
-
-  // Show next 3 after
-  const nextIdx = sched.indexOf(nextSlot);
-  const upcoming = sched.slice(nextIdx + 1, nextIdx + 4);
-  document.getElementById('upcomingStrip').innerHTML = upcoming.map(s => `
-    <div class="upcoming-pill soon">${s.time}</div>
-  `).join('');
-}
-
-// ─── ACTIONS ──────────────────────────────────────────────────────────────────
-function setDirection(dir) {
-  direction = dir;
-  document.getElementById('btnKeramoti').classList.toggle('active', dir === 'keramoti');
-  document.getElementById('btnThassos').classList.toggle('active', dir === 'thassos');
-  render();
-}
-
-function swapDirection() {
-  setDirection(direction === 'keramoti' ? 'thassos' : 'keramoti');
-}
-
-function selectDay(i) {
-  selectedDay = i;
-  render();
-}
-
-function render() {
-  renderDateBar();
-  renderNextCard();
-  renderSchedule();
-}
-
-// ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
-
-// Live countdown update every 30 seconds
-setInterval(() => {
-  if (selectedDay === TODAY_INDEX) {
-    renderNextCard();
-    renderSchedule();
-  }
-}, 30000);
+setInterval(render,30000);
 </script>
 </body>
 </html>
