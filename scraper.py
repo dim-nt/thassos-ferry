@@ -27,19 +27,45 @@ def find_timetable_image(url: str) -> str | None:
 
     soup = BeautifulSoup(r.text, "html.parser")
 
-    # Ψάχνουμε <a> ή <img> που να δείχνει σε αρχείο με έτος
+    candidates = []
+
     for tag in soup.find_all(["img", "a"]):
         src = tag.get("src") or tag.get("href") or ""
-        if "uploads" in src and ("2026" in src or "2025" in src):
-            ext = src.lower()
-            if any(ext.endswith(x) for x in [".jpg", ".jpeg", ".png", ".pdf"]):
-                # Κάνε absolute URL αν χρειάζεται
-                if src.startswith("//"):
-                    src = "https:" + src
-                elif src.startswith("/"):
-                    src = "https://anethferries.gr" + src
-                print(f"Βρέθηκε: {src}")
-                return src
+        if not src:
+            continue
+
+        # Κάνε absolute URL
+        if src.startswith("//"):
+            src = "https:" + src
+        elif src.startswith("/"):
+            src = "https://anethferries.gr" + src
+
+        # Φίλτραρε: πρέπει να είναι από uploads και εικόνα
+        if "uploads" not in src:
+            continue
+        if not any(src.lower().endswith(x) for x in [".jpg", ".jpeg", ".png"]):
+            continue
+
+        # Αποκλεισμός λογοτύπων και άλλων μη-δρομολογίων
+        skip_keywords = ["logo", "icon", "flag", "avatar", "banner", "footer"]
+        if any(kw in src.lower() for kw in skip_keywords):
+            continue
+
+        # Προτεραιότητα σε εικόνες που περιέχουν ημερομηνία (π.χ. 21-04-2026)
+        import re
+        has_date = bool(re.search(r'\d{2}-\d{2}-\d{4}', src))
+        candidates.append((src, has_date))
+
+    # Προτίμησε εικόνες με ημερομηνία
+    dated = [s for s, has_date in candidates if has_date]
+    if dated:
+        print(f"Βρέθηκε (με ημερομηνία): {dated[0]}")
+        return dated[0]
+
+    # Fallback: πρώτη υποψήφια
+    if candidates:
+        print(f"Βρέθηκε (χωρίς ημερομηνία): {candidates[0][0]}")
+        return candidates[0][0]
 
     print("Δεν βρέθηκε εικόνα.")
     return None
