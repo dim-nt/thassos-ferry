@@ -415,7 +415,19 @@ function fmt(m){
   const h=Math.floor(m/60),r=m%60;
   return r?h+'ω '+r+'λ':h+'ω';
 }
-function sched(){return timetable?(dir==='k'?timetable.from_keramoti:timetable.from_thassos):[];}
+function sched(){
+  if(!timetable) return [];
+  const raw = dir==='k' ? timetable.from_keramoti : timetable.from_thassos;
+  // Convert compact array format to object format
+  // Each row: [time, mon, tue, wed, thu, fri, sat, sun]
+  return raw.map(row => ({
+    time: row[0],
+    days: {
+      mon: row[1], tue: row[2], wed: row[3], thu: row[4],
+      fri: row[5], sat: row[6], sun: row[7]
+    }
+  }));
+}
 function findTodayIdx(ws){
   const today=new Date(),d=new Date(ws);
   const diff=Math.floor((today-d)/86400000);

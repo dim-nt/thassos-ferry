@@ -96,59 +96,38 @@ def read_timetable_from_image(image_url: str) -> dict | None:
     else:
         media_type = "image/jpeg"
 
-    prompt = """Αυτός είναι ελληνικός πίνακας δρομολογίων ferry.
+    prompt = """This is a Greek ferry timetable image.
 
-Εξήγαγε ΟΛΑ τα δρομολόγια και ποια εταιρεία εκτελεί κάθε δρομολόγιο,
-για ΚΑΙ ΤΙΣ ΔΥΟ κατευθύνσεις (από Κεραμωτή και από Θάσο/Λιμένα).
+Extract ALL departure times and the company that operates each departure for BOTH directions.
 
-Επέστρεψε ΜΟΝΟ ένα JSON αντικείμενο με αυτή ακριβώς τη μορφή:
+Return ONLY a JSON object in this COMPACT format (arrays instead of objects for days):
+
 {
   "week_start": "YYYY-MM-DD",
   "week_end": "YYYY-MM-DD",
+  "days": ["mon","tue","wed","thu","fri","sat","sun"],
   "from_keramoti": [
-    {
-      "time": "04:30",
-      "days": {
-        "mon": "TF",
-        "tue": "TL",
-        "wed": "TS",
-        "thu": "AF",
-        "fri": "TF",
-        "sat": "TL",
-        "sun": "TS"
-      }
-    }
+    ["04:30", "TF", "TL", "TS", "AF", "TF", "TL", "TS"],
+    ["05:00", "TL", "TS", "AF", "TF", "TL", "TS", "AF"]
   ],
   "from_thassos": [
-    {
-      "time": "04:30",
-      "days": {
-        "mon": "TF",
-        "tue": "TL",
-        "wed": "TS",
-        "thu": "AF",
-        "fri": "TF",
-        "sat": "TL",
-        "sun": "TS"
-      }
-    }
+    ["04:30", "TF", "TL", "TS", "AF", "TF", "TL", "TS"],
+    ["05:00", "TL", "TS", "AF", "TF", "TL", "TS", "AF"]
   ]
 }
 
-Κωδικοί εταιρειών:
-TF = Thassos Ferries
-TL = Thassos Link
-TS = Thassos Seaways
-AF = Aneth Ferries
+Each inner array: [time, mon, tue, wed, thu, fri, sat, sun]
+Company codes: TF=Thassos Ferries, TL=Thassos Link, TS=Thassos Seaways, AF=Aneth Ferries
+Use null if a company is not visible for that day/time.
 
-ΣΗΜΑΝΤΙΚΟ: Επέστρεψε ΜΟΝΟ το JSON, χωρίς άλλο κείμενο ή markdown."""
+IMPORTANT: Include ALL departures. Return ONLY the JSON, no other text."""
 
     print("Στέλνω στο Claude API...")
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 
     try:
         message = client.messages.create(
-            model="claude-opus-4-6",
+            model="claude-haiku-4-5-20251001",
             max_tokens=8000,
             messages=[{
                 "role": "user",
