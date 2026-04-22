@@ -149,7 +149,7 @@ AF = Aneth Ferries
     try:
         message = client.messages.create(
             model="claude-opus-4-6",
-            max_tokens=4000,
+            max_tokens=8000,
             messages=[{
                 "role": "user",
                 "content": [
@@ -181,6 +181,19 @@ AF = Aneth Ferries
             raw = raw[4:]
         raw = raw.strip()
 
+    # Αν το JSON κόπηκε, προσπάθησε να το κλείσεις
+    if not raw.endswith("}"):
+        print("Προειδοποίηση: JSON φαίνεται κομμένο, προσπαθώ επιδιόρθωση...")
+        # Μέτρα ανοιχτά/κλειστά brackets
+        open_b = raw.count("{") - raw.count("}")
+        open_sq = raw.count("[") - raw.count("]")
+        # Κλείσε ανοιχτά arrays και objects
+        raw = raw.rstrip(",\n ")
+        for _ in range(open_sq):
+            raw += "]"
+        for _ in range(open_b):
+            raw += "}"
+
     try:
         data = json.loads(raw)
         print(f"✅ Εβδομάδα: {data.get('week_start')} → {data.get('week_end')}")
@@ -189,7 +202,7 @@ AF = Aneth Ferries
         return data
     except json.JSONDecodeError as e:
         print(f"Σφάλμα ανάλυσης JSON: {e}")
-        print("Raw output:", raw[:500])
+        print("Raw output (πρώτα 500 χαρακτήρες):", raw[:500])
         return None
 
 
