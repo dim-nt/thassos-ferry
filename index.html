@@ -126,18 +126,51 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .site-ttl em{font-style:italic;color:rgba(255,255,255,.45);}
 .hdr-meta{margin-top:8px;font-size:12px;color:rgba(255,255,255,.4);font-weight:300;}
 
-/* ── TABS ── */
-.tabs{display:flex;margin-top:18px;border-bottom:1px solid rgba(255,255,255,.1);}
-.tab{background:none;border:none;color:rgba(255,255,255,.42);font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 15px 11px;cursor:pointer;position:relative;transition:color .18s;letter-spacing:.01em;white-space:nowrap;}
-.tab.on{color:#fff;}
-.tab.on::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--c-accent);border-radius:1px 1px 0 0;}
+/* ── BOTTOM NAV ── */
+.bot-nav{position:fixed;bottom:0;left:0;right:0;background:var(--c-surface);border-top:1px solid var(--c-border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom);}
+.bot-btn{flex:1;background:none;border:none;padding:10px 4px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--c-muted);font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.03em;transition:color .18s;}
+.bot-btn.on{color:var(--c-primary);}
+.bot-btn svg{width:22px;height:22px;stroke-width:1.8;}
+.bot-btn.on svg{stroke-width:2.2;}
+
+/* ── SWAP ANIMATION ── */
+.swap{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--c-border2);background:var(--c-surface);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .18s;}
+.swap:active{transform:rotate(180deg) scale(1.15);background:var(--c-blue-bg);}
+.swap.flipped{transform:rotate(180deg);}
+
+/* ── NEXT CARD REDESIGN ── */
+.nxt{background:linear-gradient(148deg,var(--c-primary) 0%,var(--c-primary2) 100%);border-radius:20px;padding:20px 20px 18px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 6px 28px rgba(12,74,110,.2);touch-action:pan-y;}
+.nxt::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
+.nxt-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:7px;margin-bottom:10px;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--c-accent);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.6);}}
+.nxt-time{font-family:var(--serif);font-size:clamp(58px,15vw,80px);font-weight:400;color:#fff;line-height:1;letter-spacing:-.02em;margin-bottom:4px;}
+.nxt-cd-big{font-family:var(--mono);font-size:clamp(22px,5vw,28px);font-weight:400;color:#fbbf24;margin-bottom:10px;letter-spacing:-.01em;}
+.nxt-route{font-size:11px;color:rgba(255,255,255,.45);font-weight:300;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);margin-top:8px;}
+
+/* ── UPCOMING HORIZONTAL ── */
+.upcoming-scroll{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-top:12px;padding-bottom:2px;}
+.upcoming-scroll::-webkit-scrollbar{display:none;}
+.up-card{flex:0 0 auto;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:7px 14px;text-align:center;}
+.up-card .up-time{font-family:var(--mono);font-size:15px;color:#fff;display:block;}
+.up-card .up-mins{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.5);display:block;margin-top:1px;}
+
+/* ── UPDATED BADGE ── */
+.updated-badge{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);display:flex;align-items:center;gap:5px;margin-top:8px;}
+.updated-badge::before{content:'✓';color:rgba(255,255,255,.3);}
+
+/* ── SKELETON ── */
+.skeleton{background:linear-gradient(90deg,rgba(0,0,0,.06) 25%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.06) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px;}
+@keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.skel-card{height:140px;border-radius:20px;margin-bottom:14px;}
+.skel-row{height:48px;margin-bottom:6px;}
 
 /* ── CURVE ── */
 .curve{height:28px;background:var(--c-primary);position:relative;}
 .curve::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28px;background:var(--c-bg);border-radius:22px 22px 0 0;}
 
 /* ── MAIN ── */
-.main{max-width:520px;width:100%;margin:0 auto;padding:0 16px 80px;}
+.main{max-width:520px;width:100%;margin:0 auto;padding:0 16px 90px;}
 .panel{display:none;}.panel.on{display:block;}
 
 /* ── ROUTE SELECTOR ── */
@@ -297,11 +330,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
     <span class="eyebrow">Ferry Service · Thassos Island · 2026</span>
     <h1 class="site-ttl">Δρομολόγια <em>Θάσος</em></h1>
     <p class="hdr-meta">Κεραμωτή → Λιμένας · Καβάλα → Πρίνος</p>
-    <nav class="tabs">
-      <button class="tab on" data-p="schedule">🕐 Δρομολόγια</button>
-      <button class="tab" data-p="prices">🎫 Τιμές</button>
-      <button class="tab" data-p="info">ℹ️ Πληροφορίες</button>
-    </nav>
   </div>
 </header>
 
@@ -333,22 +361,27 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
     <div class="days" id="days"></div>
 
     <!-- Next card -->
-    <div class="nxt">
+    <div class="nxt" id="nxtCard">
       <div class="nxt-lbl"><span class="dot"></span>Επόμενο δρομολόγιο</div>
-      <div class="nxt-row">
-        <div class="nxt-time" id="nxtTime">--:--</div>
-        <div class="nxt-cd" id="nxtCd">--</div>
+      <div class="nxt-time" id="nxtTime">
+        <div class="skeleton skel-card" id="skelCard"></div>
       </div>
-      <div id="nxtCo" style="margin-bottom:4px"></div>
+      <div class="nxt-cd-big" id="nxtCd"></div>
+      <div id="nxtCo" style="margin-bottom:2px"></div>
       <div class="nxt-route" id="nxtRoute"></div>
-      <div class="nxt-up" id="nxtUp"></div>
+      <div class="upcoming-scroll" id="nxtUp"></div>
+      <div class="updated-badge" id="updatedBadge"></div>
     </div>
 
     <!-- List label -->
     <div class="shdr"><span id="listLbl">Αναχωρήσεις από Κεραμωτή</span></div>
 
     <!-- Ferry list (only upcoming) -->
-    <div class="flist" id="flist"></div>
+    <div class="flist" id="flist">
+      <div class="skeleton skel-row"></div>
+      <div class="skeleton skel-row"></div>
+      <div class="skeleton skel-row"></div>
+    </div>
 
   </div>
 
@@ -658,12 +691,17 @@ function render(){
 
   if(isToday&&nextIdx>=0){
     const sl=s[nextIdx];const co=getco(sl.days[dayKey]);
+    const mAway=toM(sl.time)-now;
     document.getElementById('nxtTime').textContent=sl.time;
-    document.getElementById('nxtCd').textContent='σε '+fmt(toM(sl.time)-now);
+    document.getElementById('nxtCd').textContent=mAway<1?'Τώρα!':'σε '+fmt(mAway);
     document.getElementById('nxtCo').innerHTML=co?`<span class="co-tag ${co.cls}">${co.label}</span>`:'';
     document.getElementById('nxtRoute').textContent=routeTxt;
+    // Horizontal upcoming cards
     document.getElementById('nxtUp').innerHTML=
-      s.slice(nextIdx+1,nextIdx+4).map(x=>`<div class="up-pill">${x.time}</div>`).join('');
+      s.slice(nextIdx+1,nextIdx+4).map(x=>{
+        const m=toM(x.time)-now;
+        return`<div class="up-card"><span class="up-time">${x.time}</span><span class="up-mins">σε ${fmt(m)}</span></div>`;
+      }).join('');
   } else if(!isToday&&s.length>0){
     const sl=s[0];const co=getco(sl.days[dayKey]);
     const wsBase=timetable?new Date(timetable.week_start):new Date();
@@ -674,7 +712,7 @@ function render(){
     document.getElementById('nxtCo').innerHTML=co?`<span class="co-tag ${co.cls}">${co.label}</span>`:'';
     document.getElementById('nxtRoute').textContent=routeTxt;
     document.getElementById('nxtUp').innerHTML=
-      s.slice(0,4).map(x=>`<div class="up-pill">${x.time}</div>`).join('');
+      s.slice(0,4).map(x=>`<div class="up-card"><span class="up-time">${x.time}</span></div>`).join('');
   } else {
     document.getElementById('nxtTime').innerHTML=
       `<span style="font-family:var(--serif);font-size:36px;font-style:italic;color:rgba(255,255,255,.5)">Τέλος</span>`;
@@ -682,6 +720,13 @@ function render(){
     document.getElementById('nxtCo').innerHTML='';
     document.getElementById('nxtRoute').textContent='Δεν υπάρχουν άλλα δρομολόγια σήμερα.';
     document.getElementById('nxtUp').innerHTML='';
+  }
+
+  // Updated badge
+  if(timetable){
+    const ws2=new Date(timetable.week_start);
+    document.getElementById('updatedBadge').textContent=
+      'Ενημέρωση '+ws2.toLocaleDateString('el-GR',{day:'numeric',month:'short'});
   }
 
   const upcoming=s.slice(startIdx);
@@ -703,22 +748,38 @@ function render(){
 }
 
 function setDir(d){dir=d;render();}
-function swapDir(){dir=dir==='k'?'t':'k';render();}
+function swapDir(){
+  const sw=document.querySelector('.swap');
+  sw.classList.toggle('flipped');
+  dir=dir==='k'?'t':'k';
+  render();
+}
 function setRoute(r){
   route=r; dir='k';
+  document.querySelector('.swap').classList.remove('flipped');
   document.getElementById('pill-limenas').classList.toggle('on',r==='limenas');
   document.getElementById('pill-prinos').classList.toggle('on',r==='prinos');
   render();
 }
 
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-    document.getElementById('panel-'+this.dataset.p).classList.add('on');
-    this.classList.add('on');
-  });
-});
+// Swipe on next card to change direction
+(function(){
+  let sx=0;
+  const card=()=>document.getElementById('nxtCard');
+  document.addEventListener('touchstart',e=>{if(card()&&card().contains(e.target))sx=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(!card()||!card().contains(e.target))return;
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60)swapDir();
+  },{passive:true});
+})();
+
+function showPanel(name){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.bot-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('panel-'+name).classList.add('on');
+  document.getElementById('nav-'+name).classList.add('on');
+}
 
 fetch('timetable.json')
   .then(r=>{if(!r.ok)throw new Error('not found');return r.json();})
@@ -729,13 +790,30 @@ fetch('timetable.json')
     render();
   })
   .catch(()=>{
-    document.getElementById('flist').innerHTML='<div class="empty-day">Φόρτωση...</div>';
     document.getElementById('nxtTime').textContent='—';
     document.getElementById('nxtCd').textContent='—';
+    document.getElementById('flist').innerHTML=
+      '<div class="empty-day" style="font-size:14px">Δεν φορτώθηκε πρόγραμμα.</div>';
   });
 
 setInterval(()=>{if(timetable&&selDay===todayIdx)render();},30000);
 </script>
+
+<!-- BOTTOM NAV -->
+<nav class="bot-nav">
+  <button class="bot-btn on" id="nav-schedule" onclick="showPanel('schedule')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Δρομολόγια
+  </button>
+  <button class="bot-btn" id="nav-prices" onclick="showPanel('prices')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+    Τιμές
+  </button>
+  <button class="bot-btn" id="nav-info" onclick="showPanel('info')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Πληροφορίες
+  </button>
+</nav>
 
 </body>
 </html>
