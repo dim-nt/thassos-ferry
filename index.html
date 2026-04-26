@@ -654,8 +654,12 @@ function sched(){
   return raw.map(row=>({time:row[0],days:{mon:row[1],tue:row[2],wed:row[3],thu:row[4],fri:row[5],sat:row[6],sun:row[7]}}));
 }
 function findTodayIdx(ws){
-  const today=new Date(),d=new Date(ws);
-  const diff=Math.floor((today-d)/86400000);
+  // Timezone-safe: treat both dates as local midnight
+  const t=new Date();
+  const today=new Date(t.getFullYear(),t.getMonth(),t.getDate());
+  const [y,m,d]=ws.split('-').map(Number);
+  const start=new Date(y,m-1,d);
+  const diff=Math.floor((today-start)/86400000);
   return(diff>=0&&diff<=6)?diff:-1;
 }
 
