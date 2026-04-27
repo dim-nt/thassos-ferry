@@ -178,8 +178,11 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .curve::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28px;background:var(--c-bg);border-radius:22px 22px 0 0;}
 
 /* ── MAIN ── */
-.main{max-width:520px;width:100%;margin:0 auto;padding:0 16px 90px;}
+.main{max-width:520px;width:100%;margin:0 auto;padding:0 16px 20px;}
 .panel{display:none;}.panel.on{display:block;}
+
+/* ── PAGE WRAPPER — pushes content above bottom nav ── */
+.page-content{padding-bottom:90px;}
 
 /* ── ROUTE SELECTOR ── */
 .routes{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:14px 0 6px;}
@@ -290,6 +293,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .footer{text-align:center;padding:24px 16px 16px;font-size:11px;color:var(--c-muted);line-height:1.8;max-width:520px;margin:0 auto;}
 .footer a{color:var(--c-muted);text-decoration:none;}
 .footer a:hover{color:var(--c-primary);}
+.disclaimer{background:var(--c-amber-bg);border:1px solid rgba(180,83,9,.12);border-radius:10px;padding:10px 14px;margin:0 0 16px;font-size:12px;color:var(--c-amber-tx);line-height:1.5;text-align:left;}
+.disclaimer::before{content:'⚠️ ';}
 
 @keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .nxt{animation:up .45s ease both;}
@@ -333,6 +338,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 </head>
 <body>
 
+<div class="page-content">
 <header class="hdr">
   <div class="hdr-in">
     <div class="hdr-top">
@@ -575,16 +581,58 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         </ul>
       </div>
       <div class="icard">
-        <h3>Σχετικά με τα δρομολόγια</h3>
+        <h3>Λιμεναρχεία</h3>
+        <ul class="co-list">
+          <li>
+            <span class="co-dot" style="background:#1a6e8e"></span>
+            <span class="nm">Λιμεναρχείο Καβάλας</span>
+            <a href="tel:+302513505430">2513 505430</a>
+          </li>
+          <li>
+            <span class="co-dot" style="background:#1a6e8e"></span>
+            <span class="nm">Λιμενικό Τμήμα Κεραμωτής</span>
+            <a href="tel:+302591051204">25910 51204</a>
+          </li>
+        </ul>
+        <p style="font-size:12px;color:var(--c-muted);margin-top:10px;font-weight:300;">Για απαγορευτικό απόπλου, ακυρώσεις και τροποποιήσεις δρομολογίων.</p>
+      </div>
         <p>Οι ώρες είναι <b>ίδιες κάθε μέρα</b> (Δευ–Κυρ). Αλλάζει ποια εταιρεία εκτελεί κάθε δρομολόγιο — οι 4 εναλλάσσονται βάσει εβδομαδιαίου πίνακα.</p>
         <p>Ενημέρωση <b>κάθε Κυριακή</b> για την επόμενη εβδομάδα.</p>
       </div>
     </div>
   </div>
 
+  <!-- ═══ MAP ═══ -->
+  <div class="panel" id="panel-map">
+    <div class="shdr" style="margin-top:16px"><span>Live — Πλοία στην περιοχή</span></div>
+    <div style="border-radius:16px;overflow:hidden;border:1px solid var(--c-border);margin-bottom:14px;background:#e8f0f7;">
+      <iframe
+        src="https://www.marinetraffic.com/en/ais/embed/zoom:11/centery:40.77/centerx:24.72/maptype:4/shownames:true/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false"
+        width="100%"
+        height="420"
+        frameborder="0"
+        style="display:block;"
+        loading="lazy"
+        title="Live ship map Thassos">
+      </iframe>
+    </div>
+    <div class="info-box amber" style="margin-bottom:10px">
+      <h4>💡 Πληροφορίες χάρτη</h4>
+      <ul>
+        <li>Εμφανίζει τα πλοία που εκτελούν δρομολόγια τώρα.</li>
+        <li>Πηγή: MarineTraffic — real-time AIS δεδομένα.</li>
+        <li>Χρειάζεται σύνδεση internet.</li>
+      </ul>
+    </div>
+    <a href="https://www.marinetraffic.com/en/ais/home/centerx:24.72/centery:40.77/zoom:11" target="_blank"
+       style="display:block;text-align:center;background:var(--c-primary);color:#fff;border-radius:12px;padding:14px;font-family:var(--sans);font-size:14px;font-weight:600;text-decoration:none;letter-spacing:.02em;">
+      🗺️ Πλήρης Χάρτης →
+    </a>
+  </div>
+
 </main>
 
-<section style="max-width:520px;margin:0 auto;padding:0 16px 40px;color:var(--c-mid);">
+<section style="max-width:520px;margin:0 auto;padding:0 16px 20px;color:var(--c-mid);">
   <h2 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--c-ink);margin-bottom:12px;">
     Δρομολόγια Ferry Θάσος 2026
   </h2>
@@ -600,11 +648,15 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 </section>
 
 <footer class="footer">
+  <div class="disclaimer">
+    Δεν φέρουμε ευθύνη για ακυρώσεις λόγω καιρού ή ανωτέρας βίας. Για απαγορευτικό ή τροποποιήσεις:<br>
+    <strong>Λιμεναρχείο Καβάλας:</strong> <a href="tel:+302513505430" style="color:var(--c-amber-tx);">2513 505430</a> · <a href="mailto:kavala@hcg.gr" style="color:var(--c-amber-tx);">kavala@hcg.gr</a><br>
+    <strong>Λιμενικό Τμήμα Κεραμωτής:</strong> <a href="tel:+302591051204" style="color:var(--c-amber-tx);">25910 51204</a> · <a href="mailto:keramoti@hcg.gr" style="color:var(--c-amber-tx);">keramoti@hcg.gr</a>
+  </div>
   Πηγή: <a href="https://anethferries.gr" target="_blank">anethferries.gr</a> ·
   <a href="https://thassoslink.gr" target="_blank">thassoslink.gr</a> ·
   <a href="https://thassos-seaways.gr" target="_blank">thassos-seaways.gr</a> ·
-  <a href="http://www.thassos-ferries.gr" target="_blank">thassos-ferries.gr</a><br>
-  Δεν φέρουμε ευθύνη για αλλαγές. Για επιβεβαίωση επικοινωνήστε με τις εταιρείες.
+  <a href="http://www.thassos-ferries.gr" target="_blank">thassos-ferries.gr</a>
 </footer>
 
 <script>
@@ -808,6 +860,8 @@ fetch('timetable.json')
 setInterval(()=>{if(timetable&&selDay===todayIdx)render();},30000);
 </script>
 
+</div><!-- end page-content -->
+
 <!-- BOTTOM NAV -->
 <div class="bot-nav-wrap">
   <nav class="bot-nav">
@@ -818,6 +872,10 @@ setInterval(()=>{if(timetable&&selDay===todayIdx)render();},30000);
     <button class="bot-btn" id="nav-prices" onclick="showPanel('prices')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
       Τιμές
+    </button>
+    <button class="bot-btn" id="nav-map" onclick="showPanel('map')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      Χάρτης
     </button>
     <button class="bot-btn" id="nav-info" onclick="showPanel('info')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
