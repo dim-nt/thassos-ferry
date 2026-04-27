@@ -604,16 +604,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
   <!-- ═══ MAP ═══ -->
   <div class="panel" id="panel-map">
-    <div class="shdr" style="margin-top:16px"><span>Κυκλοφορία · Λιμάνι Κεραμωτής</span></div>
-    <div style="border-radius:16px;overflow:hidden;border:1px solid var(--c-border);margin-bottom:14px;">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3000!2d24.5013!3d40.8538!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sel!2sgr!4v1714900000000!5m2!1sel!2sgr"
-        width="100%" height="380" frameborder="0" style="display:block;"
-        loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
-        title="Κυκλοφορία Κεραμωτή">
-      </iframe>
-    </div>
-    <div class="shdr"><span>Live — Πλοία στην περιοχή</span></div>
+    <div class="shdr" style="margin-top:16px"><span>Live — Πλοία στην περιοχή</span></div>
     <div style="border-radius:16px;overflow:hidden;border:1px solid var(--c-border);margin-bottom:14px;background:#e8f0f7;">
       <iframe
         src="https://www.marinetraffic.com/en/ais/embed/zoom:11/centery:40.77/centerx:24.72/maptype:4/shownames:true/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false"
@@ -641,7 +632,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
 </main>
 
-<section style="max-width:520px;margin:0 auto;padding:0 16px 20px;color:var(--c-mid);">
+<section id="seo-section" style="max-width:520px;margin:0 auto;padding:0 16px 20px;color:var(--c-mid);">
   <h2 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--c-ink);margin-bottom:12px;">
     Δρομολόγια Ferry Θάσος 2026
   </h2>
@@ -849,6 +840,7 @@ function showPanel(name){
   document.querySelectorAll('.bot-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('panel-'+name).classList.add('on');
   document.getElementById('nav-'+name).classList.add('on');
+  document.getElementById('seo-section').style.display=name==='schedule'?'':'none';
 }
 
 fetch('timetable.json')
