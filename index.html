@@ -8,7 +8,6 @@
 <meta name="keywords" content="δρομολόγια θάσος, thassos ferry timetable, keramoti thassos ferry, κεραμωτή θάσος πλοίο, thassos ferry schedule 2026">
 <link rel="canonical" href="https://dim-nt.github.io/thassos-ferry/">
 
-<!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Δρομολόγια Θάσος | Thassos Ferry Timetable 2026">
 <meta property="og:description" content="Επόμενο πλοίο Κεραμωτή–Θάσος σε real-time. Ωράρια, τιμές, εταιρείες.">
@@ -16,15 +15,12 @@
 <meta property="og:locale" content="el_GR">
 <meta property="og:locale:alternate" content="en_GB">
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Thassos Ferry Timetable 2026">
 <meta name="twitter:description" content="Next ferry Keramoti–Thassos in real-time.">
 
-<!-- Theme -->
 <meta name="theme-color" content="#0c4a6e">
 
-<!-- Schema.org -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -51,7 +47,6 @@
 }
 </script>
 
-<!-- FAQ Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -278,8 +273,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .info-box li::before{content:'›';flex-shrink:0;}
 
 /* ── INFO ── */
-.info-wrap{padding-top:6px;}
-.icard{background:var(--c-surface);border-radius:14px;border:1px solid var(--c-border);padding:16px;margin-bottom:10px;}
+.info-wrap{padding-top:6px;overflow:hidden;}
+.icard{background:var(--c-surface);border-radius:14px;border:1px solid var(--c-border);padding:16px;margin-bottom:10px;overflow:hidden;}
 .icard h3{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:9px;}
 .icard p{font-size:14px;color:var(--c-mid);font-weight:400;line-height:1.6;margin-bottom:7px;}
 .co-list{list-style:none;margin-top:6px;}
@@ -343,7 +338,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
   <div class="hdr-in">
     <div class="hdr-top">
       <div class="logo-slot" aria-label="Logo placeholder">
-        <!-- LOGO PLACEHOLDER — αντικατέστησε με <img src="logo.svg"> ή <svg> -->
         <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M4 22 L28 22 L26 26 L6 26 Z"/>
           <path d="M16 6 L16 22 M10 12 L22 12"/>
@@ -360,16 +354,13 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
 <main class="main">
 
-  <!-- ═══ SCHEDULE ═══ -->
   <div class="panel on" id="panel-schedule">
 
-    <!-- Route selector -->
     <div class="routes">
       <button class="route-pill on" id="pill-limenas" onclick="setRoute('limenas')">Κεραμωτή ↔ Λιμένας</button>
       <button class="route-pill"    id="pill-prinos"  onclick="setRoute('prinos')">Καβάλα ↔ Πρίνος</button>
     </div>
 
-    <!-- Direction -->
     <div class="dir">
       <button class="dir-btn on" id="btn-k" onclick="setDir('k')">
         <b>Κεραμωτή</b><small>→ Λιμένας Θάσου</small>
@@ -380,10 +371,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
       </button>
     </div>
 
-    <!-- Day selector -->
     <div class="days" id="days"></div>
 
-    <!-- Next card -->
     <div class="nxt" id="nxtCard">
       <div class="nxt-lbl"><span class="dot"></span>Επόμενο δρομολόγιο</div>
       <div class="nxt-time" id="nxtTime">
@@ -396,10 +385,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
       <div class="updated-badge" id="updatedBadge"></div>
     </div>
 
-    <!-- List label -->
     <div class="shdr"><span id="listLbl">Αναχωρήσεις από Κεραμωτή</span></div>
 
-    <!-- Ferry list (only upcoming) -->
     <div class="flist" id="flist">
       <div class="skeleton skel-row"></div>
       <div class="skeleton skel-row"></div>
@@ -408,13 +395,11 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
   </div>
 
-  <!-- ═══ PRICES ═══ -->
   <div class="panel" id="panel-prices">
     <div class="prices-wrap">
 
       <div class="shdr" style="margin-top:14px"><span>Κεραμωτή — Λιμένας Θάσου</span></div>
 
-      <!-- Thassos Link -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-tl"></span>
@@ -432,7 +417,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <p class="pnote">* Promo τιμές οχημάτων — επιβεβαιώστε στο εκδοτήριο.</p>
       </div>
 
-      <!-- Thassos Ferries -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-tf"></span>
@@ -449,7 +433,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
 
-      <!-- Aneth Ferries -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-af"></span>
@@ -467,7 +450,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <p class="pnote">* Thassos Ferries & Aneth Ferries λειτουργούν ως κοινοπραξία — ίδιες τιμές.</p>
       </div>
 
-      <!-- Thassos Seaways -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-ts"></span>
@@ -482,7 +464,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
       <div class="shdr" style="margin-top:20px"><span>Καβάλα — Πρίνος Θάσου</span></div>
 
-      <!-- Thassos Link Kavala-Prinos -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-tl"></span>
@@ -499,7 +480,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
 
-      <!-- ANETH Kavala-Prinos -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-af"></span>
@@ -516,7 +496,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
 
-      <!-- Thassos Ferries Kavala-Prinos -->
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-tf"></span>
@@ -541,6 +520,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
           <li>Λιμάνι Πρίνου: 20 χλμ από Λιμένα Θάσου.</li>
         </ul>
       </div>
+
+      <div class="info-box green">
         <h4>🎫 Εκπτώσεις</h4>
         <ul>
           <li>Thassos Link — Πολύτεκνοι/Τρίτεκνοι: <b>50%</b></li>
@@ -563,7 +544,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
     </div>
   </div>
 
-  <!-- ═══ INFO ═══ -->
   <div class="panel" id="panel-info">
     <div class="info-wrap">
       <div class="icard" style="margin-top:14px">
@@ -596,13 +576,14 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         </ul>
         <p style="font-size:12px;color:var(--c-muted);margin-top:10px;font-weight:300;">Για απαγορευτικό απόπλου, ακυρώσεις και τροποποιήσεις δρομολογίων.</p>
       </div>
+      <div class="icard">
+        <h3>Σχετικά με τα δρομολόγια</h3>
         <p>Οι ώρες είναι <b>ίδιες κάθε μέρα</b> (Δευ–Κυρ). Αλλάζει ποια εταιρεία εκτελεί κάθε δρομολόγιο — οι 4 εναλλάσσονται βάσει εβδομαδιαίου πίνακα.</p>
         <p>Ενημέρωση <b>κάθε Κυριακή</b> για την επόμενη εβδομάδα.</p>
       </div>
     </div>
   </div>
 
-  <!-- ═══ MAP ═══ -->
   <div class="panel" id="panel-map">
     <div class="shdr" style="margin-top:16px"><span>Live — Πλοία στην περιοχή</span></div>
     <div style="border-radius:16px;overflow:hidden;border:1px solid var(--c-border);margin-bottom:14px;background:#e8f0f7;">
@@ -632,7 +613,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
 </main>
 
-<section id="seo-section" style="max-width:520px;margin:0 auto;padding:0 16px 20px;color:var(--c-mid);">
+<section style="max-width:520px;margin:0 auto;padding:0 16px 20px;color:var(--c-mid);">
   <h2 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--c-ink);margin-bottom:12px;">
     Δρομολόγια Ferry Θάσος 2026
   </h2>
@@ -840,7 +821,6 @@ function showPanel(name){
   document.querySelectorAll('.bot-btn').forEach(b=>b.classList.remove('on'));
   document.getElementById('panel-'+name).classList.add('on');
   document.getElementById('nav-'+name).classList.add('on');
-  document.getElementById('seo-section').style.display=name==='schedule'?'':'none';
 }
 
 fetch('timetable.json')
@@ -861,10 +841,7 @@ fetch('timetable.json')
 setInterval(()=>{if(timetable&&selDay===todayIdx)render();},30000);
 </script>
 
-</div><!-- end page-content -->
-
-<!-- BOTTOM NAV -->
-<div class="bot-nav-wrap">
+</div><div class="bot-nav-wrap">
   <nav class="bot-nav">
     <button class="bot-btn on" id="nav-schedule" onclick="showPanel('schedule')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
