@@ -43,7 +43,6 @@
   --co-ts-bg: rgba(22,101,52,.1);  --co-ts-tx: #166534;
   --co-af-bg: rgba(109,40,217,.1); --co-af-tx: #6d28d9;
   
-  /* Ενημερωμένες Γραμματοσειρές */
   --heading: 'Poppins', sans-serif;
   --sans: 'Inter', system-ui, sans-serif;
   --mono: 'Roboto Mono', monospace;
@@ -192,7 +191,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .custom-select:hover { border-color: var(--c-primary); background: var(--c-blue-bg); }
 .custom-select.open { border-color: var(--c-primary); box-shadow: 0 4px 16px rgba(12,74,110,.15); }
 .select-selected {
-  padding: 10px 30px 10px 14px;
+  padding: 10px 32px 10px 14px;
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 700;
@@ -257,13 +256,10 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 /* ── NEXT CARD ── */
 .nxt{background:linear-gradient(148deg,var(--c-primary) 0%,var(--c-primary2) 100%);border-radius:22px;padding:24px 22px 20px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 6px 28px rgba(12,74,110,.2);}
 .nxt::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
-
-/* Επιδιόρθωση του κενού ανάμεσα στην ετικέτα και την ώρα */
-.nxt-lbl{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px;margin-bottom:2px;} /* Μειώθηκε το margin-bottom */
+.nxt-lbl{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px;margin-bottom:2px;}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--c-accent);animation:blink 2s ease-in-out infinite; flex-shrink: 0;}
 @keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.6);}}
 .nxt-time{font-family:var(--heading);font-size:clamp(64px,16vw,88px);font-weight:600;color:#fff;line-height:1;letter-spacing:-.02em;margin-bottom:6px;}
-
 .nxt-cd-big{font-family:var(--sans);font-size:15px;font-weight:600;color:#fbbf24;margin-bottom:12px;display:inline-block;background:rgba(245,158,11,.15);padding:6px 12px;border-radius:8px;border:1px solid rgba(245,158,11,.3);}
 .nxt-route{font-family:var(--sans);font-size:12px;color:rgba(255,255,255,.6);font-weight:500;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);margin-top:10px;}
 
@@ -364,7 +360,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
   .logo-slot svg { width: 20px; height: 20px; }
   .site-ttl { font-size: 20px; }
   .route-dropdowns { gap: 8px; padding: 10px 0 14px; }
-  .select-selected { padding: 8px 30px 8px 12px; font-size: 14px; }
+  .select-selected { padding: 8px 32px 8px 12px; font-size: 14px; }
   .swap { width: 32px; height: 32px; font-size: 13px; }
   .days{gap:4px;margin-bottom:10px;}
   .day-btn { padding: 6px 0; border-radius: 10px; }
@@ -481,6 +477,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         </div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">5,00€</span></div>
         <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Βρέφη έως 5 ετών</span><span class="pval" style="color:var(--c-green-tx);">Δωρεάν</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">20,00€ <span class="highlight">Promo: 12€</span></span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">25,00€ <span class="highlight">Promo: 17€</span></span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">5,00€</span></div>
@@ -493,34 +490,18 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-tf"></span>
-          <span class="co-name">Thassos Ferries</span>
-          <a href="tel:+302593024001" class="co-phone">25930 24001</a>
+          <span class="co-name">Thassos Ferries & ΑΝΕΘ</span>
         </div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,00€</span></div>
         <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
+        <div class="prow"><span class="pcat">Βρέφη έως 5 ετών</span><span class="pval" style="color:var(--c-green-tx);">Δωρεάν</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">7,00€</span></div>
         <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
         <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
-      </div>
-
-      <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-af"></span>
-          <span class="co-name">Aneth Ferries</span>
-          <a href="tel:+302593022318" class="co-phone">25930 22318</a>
-        </div>
-        <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">7,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
-        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
-        <p class="pnote">* Thassos Ferries & Aneth Ferries λειτουργούν ως κοινοπραξία — ίδιες τιμές.</p>
+        <p class="pnote">* Οι δύο εταιρείες λειτουργούν ως κοινοπραξία με κοινές τιμές.</p>
       </div>
 
       <div class="co-section">
@@ -530,6 +511,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
           <a href="tel:+302104657211" class="co-phone">210 4657211</a>
         </div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">~6,00€</span></div>
+        <div class="prow"><span class="pcat">Βρέφη έως 5 ετών</span><span class="pval" style="color:var(--c-green-tx);">Δωρεάν</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">~21,00€</span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα</span><span class="pval">~5–6€</span></div>
         <p class="pnote">* Επιβεβαιώστε τιμές στο εκδοτήριο ή στο τηλέφωνο.</p>
@@ -545,6 +527,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         </div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,50€</span></div>
         <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">4,00€</span></div>
+        <div class="prow"><span class="pcat">Βρέφη έως 5 ετών</span><span class="pval" style="color:var(--c-green-tx);">Δωρεάν</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">20,00€</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">25,00€</span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
@@ -556,33 +539,18 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
       <div class="co-section">
         <div class="co-hdr">
           <span class="co-dot dot-af"></span>
-          <span class="co-name">Aneth Ferries</span>
-          <a href="tel:+302593022318" class="co-phone">25930 22318</a>
+          <span class="co-name">Thassos Ferries & ΑΝΕΘ</span>
         </div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,50€</span></div>
         <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">4,00€</span></div>
+        <div class="prow"><span class="pcat">Βρέφη έως 5 ετών</span><span class="pval" style="color:var(--c-green-tx);">Δωρεάν</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">7,00€</span></div>
         <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">9,00€</span></div>
         <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">4,00€</span></div>
         <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
-      </div>
-
-      <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-tf"></span>
-          <span class="co-name">Thassos Ferries</span>
-          <a href="tel:+302593024001" class="co-phone">25930 24001</a>
-        </div>
-        <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,50€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">4,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">7,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">9,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">4,00€</span></div>
-        <p class="pnote">* Thassos Ferries & Aneth Ferries — ίδιες τιμές για Καβάλα-Πρίνος.</p>
+        <p class="pnote">* Οι δύο εταιρείες λειτουργούν ως κοινοπραξία με κοινές τιμές.</p>
       </div>
 
       <div class="info-box green">
@@ -590,21 +558,18 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <ul>
           <li>Thassos Link — Πολύτεκνοι/Τρίτεκνοι: <b>50%</b></li>
           <li>ΑΝΕΘ — ΑμεΑ (60%+): <b>50%</b> σε επιβάτες & οχήματα</li>
-          <li>ΑΝΕΘ — Πολύτεκνοι: <b>50%</b> · Τρίτεκνοι: <b>50%</b> (επιβάτες)</li>
-          <li>Παιδιά έως 5 ετών: <b>Δωρεάν</b> παντού</li>
+          <li>ΑΝΕΘ — Πολύτεκνοι/Τρίτεκνοι: <b>50%</b> (στους επιβάτες)</li>
         </ul>
       </div>
 
       <div class="info-box amber">
         <h4>💡 Χρήσιμα</h4>
         <ul>
-          <li>Εισιτήρια μόνο στο εκδοτήριο λιμανιού — δεν υπάρχει online αγορά.</li>
-          <li>Αποδεκτές χρεωστικές & πιστωτικές κάρτες.</li>
-          <li>Με αυτοκίνητο: προσέλευση 30–45 λεπτά νωρίτερα.</li>
-          <li>Δεν εκδίδονται εισιτήρια aller-retour.</li>
+          <li>Εισιτήρια μόνο στα εκδοτήρια των λιμανιών. Δεν υπάρχει online αγορά.</li>
+          <li>Αποδεκτές όλες οι χρεωστικές & πιστωτικές κάρτες.</li>
+          <li>Δεν εκδίδονται εισιτήρια aller-retour (μετ' επιστροφής).</li>
         </ul>
       </div>
-
     </div>
   </div>
 
@@ -700,7 +665,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
         <div style="margin-bottom:14px; border-bottom:1px solid var(--c-border); padding-bottom:10px;">
           <h4 style="font-family:var(--heading); font-size:14px; color:var(--c-ink); margin-bottom:4px;">Πότε πρέπει να βρίσκομαι στο λιμάνι;</h4>
-          <p style="font-size:13px; margin-bottom:0;">Προτείνεται η άφιξη 10-30 λεπτά νωρίτερα. Με αυτοκίνητο το καλοκαίρι, υπολογίστε 30-45 λεπτά νωρίτερα.</p>
+          <p style="font-size:13px; margin-bottom:0;">Προτείνεται η άφιξη 15-30 λεπτά νωρίτερα. Με αυτοκίνητο το καλοκαίρι, υπολογίστε 30-45 λεπτά νωρίτερα.</p>
         </div>
 
         <div style="margin-bottom:14px; border-bottom:1px solid var(--c-border); padding-bottom:10px;">
@@ -980,6 +945,7 @@ function render(){
     }).join('');
   }
   
+  // Trigger reflow to restart fade-in animation
   flist.style.animation = 'none';
   flist.offsetHeight; 
   flist.style.animation = null; 
@@ -991,7 +957,6 @@ function showPanel(name){
   document.getElementById('panel-'+name).classList.add('on');
   document.getElementById('nav-'+name).classList.add('on');
   
-  // Η προσθήκη που ζήτησες για επιστροφή στην κορυφή:
   window.scrollTo(0, 0); 
 }
 
