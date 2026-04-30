@@ -21,75 +21,17 @@
 
 <meta name="theme-color" content="#0c4a6e">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Δρομολόγια Θάσος",
-  "url": "https://dim-nt.github.io/thassos-ferry/",
-  "description": "Δρομολόγια πορθμείου Κεραμωτή–Θάσος. Επόμενο πλοίο σε real-time.",
-  "inLanguage": ["el", "en"],
-  "about": {
-    "@type": "Service",
-    "name": "Πορθμείο Κεραμωτή–Θάσος",
-    "serviceType": "Ferry Service",
-    "areaServed": {
-      "@type": "Place",
-      "name": "Θάσος, Ελλάδα"
-    },
-    "provider": [
-      {"@type": "Organization", "name": "Thassos Ferries", "telephone": "+302593024001"},
-      {"@type": "Organization", "name": "Thassos Link", "telephone": "+306973404079"},
-      {"@type": "Organization", "name": "Thassos Seaways", "telephone": "+302104657211"},
-      {"@type": "Organization", "name": "Aneth Ferries", "telephone": "+302593022318"}
-    ]
-  }
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Πόση ώρα διαρκεί το πορθμείο Κεραμωτή–Θάσος;",
-      "acceptedAnswer": {"@type": "Answer", "text": "Η διάρκεια του πλου είναι περίπου 35 λεπτά."}
-    },
-    {
-      "@type": "Question",
-      "name": "How long is the Keramoti to Thassos ferry?",
-      "acceptedAnswer": {"@type": "Answer", "text": "The Keramoti to Thassos (Limenas) ferry takes approximately 35 minutes."}
-    },
-    {
-      "@type": "Question",
-      "name": "Πότε φεύγει το πρώτο πλοίο για Θάσο;",
-      "acceptedAnswer": {"@type": "Answer", "text": "Το πρώτο δρομολόγιο από Κεραμωτή αναχωρεί στις 04:30."}
-    },
-    {
-      "@type": "Question",
-      "name": "Πού αγοράζω εισιτήριο για το πορθμείο Θάσου;",
-      "acceptedAnswer": {"@type": "Answer", "text": "Τα εισιτήρια εκδίδονται αποκλειστικά στα εκδοτήρια του λιμανιού. Δεν υπάρχει δυνατότητα online αγοράς."}
-    }
-  ]
-}
-</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono&display=swap" rel="stylesheet">
 <style>
-/* ── DESIGN TOKEN PLACEHOLDERS ─────────────────────────────────────────────
-   Αυτές οι μεταβλητές θα αντικατασταθούν από τη γραφίστα.
-   Προσωρινά χρώματα — δεν είναι τελικά.
-────────────────────────────────────────────────────────────────────────── */
 :root {
-  --c-primary:   #0c4a6e;   /* κύριο χρώμα header/card */
-  --c-primary2:  #075985;   /* gradient δεύτερο */
-  --c-accent:    #f59e0b;   /* accent / countdown */
-  --c-bg:        #f8f5f0;   /* background σελίδας */
-  --c-surface:   #ffffff;   /* κάρτες */
-  --c-border:    #e5ddd0;   /* borders */
-  --c-border2:   #d4c9b5;   /* darker borders */
+  --c-primary:   #0c4a6e;
+  --c-primary2:  #075985;
+  --c-accent:    #f59e0b;
+  --c-bg:        #f8f5f0;
+  --c-surface:   #ffffff;
+  --c-border:    #e5ddd0;
+  --c-border2:   #d4c9b5;
   --c-ink:       #1a1a1a;
   --c-mid:       #4a5568;
   --c-muted:     #8a9bb0;
@@ -98,11 +40,12 @@
   --c-amber-bg:  #fef3c7;
   --c-amber-tx:  #92400e;
   --c-blue-bg:   #e0f2fe;
-  /* εταιρείες */
+  
   --co-tf-bg: rgba(12,74,110,.1);  --co-tf-tx: #0c4a6e;
   --co-tl-bg: rgba(180,83,9,.1);   --co-tl-tx: #b45309;
   --co-ts-bg: rgba(22,101,52,.1);  --co-ts-tx: #166534;
   --co-af-bg: rgba(109,40,217,.1); --co-af-tx: #6d28d9;
+  
   --serif:'Playfair Display',Georgia,serif;
   --sans:'DM Sans',system-ui,sans-serif;
   --mono:'DM Mono',monospace;
@@ -135,13 +78,143 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .bot-btn svg{width:24px;height:24px;stroke-width:1.8;}
 .bot-btn.on svg{stroke-width:2.2;}
 
-/* ── SWAP — bigger, more prominent ── */
-.swap{width:48px;height:48px;border-radius:50%;border:2px solid var(--c-primary);background:var(--c-surface);cursor:pointer;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .18s,box-shadow .18s;box-shadow:0 3px 10px rgba(12,74,110,.15);}
-.swap:hover{background:var(--c-blue-bg);box-shadow:0 4px 14px rgba(12,74,110,.25);}
+/* ── SWAP ── */
+.swap {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-border2);
+  background: var(--c-surface);
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-primary);
+  flex-shrink: 0;
+  transition: transform .32s, background .18s;
+}
+.swap:hover{background:var(--c-blue-bg);box-shadow:0 2px 8px rgba(12,74,110,.15);}
 .swap:active{transform:rotate(180deg) scale(1.1);}
 .swap.flipped{transform:rotate(180deg);}
 
-/* ── NEXT CARD REDESIGN — bigger ── */
+/* ── ROUTE DROPDOWNS ── */
+.route-dropdowns {
+  display: flex;
+  align-items: flex-end; /* Aligns boxes to bottom so swap button matches them */
+  gap: 10px;
+  padding: 12px 0 16px;
+}
+.route-col {
+  flex: 1;
+}
+.route-lbl {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--c-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 600;
+  padding-left: 2px;
+}
+.select-wrap {
+  background: var(--c-surface);
+  border: 1.5px solid var(--c-border2);
+  border-radius: 12px;
+  padding: 10px 12px 10px 14px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  transition: all .2s ease;
+  cursor: pointer;
+}
+.select-wrap:hover {
+  border-color: var(--c-primary);
+  background: var(--c-blue-bg);
+}
+.select-wrap:focus-within {
+  border-color: var(--c-primary);
+  box-shadow: 0 4px 16px rgba(12,74,110,.15);
+}
+.select-wrap select {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-ink);
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+  padding-right: 20px;
+}
+/* Custom Arrow */
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 6px;
+  background-color: var(--c-primary);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+.select-wrap:focus-within::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* ── DAYS GRID ── */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.day-btn {
+  background: var(--c-surface);
+  border: 1.5px solid var(--c-border);
+  border-radius: 12px;
+  padding: 8px 0;
+  cursor: pointer;
+  text-align: center;
+  transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.day-btn .dname {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  display: block;
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+.day-btn .dnum {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--c-ink);
+  display: block;
+  line-height: 1.1;
+}
+.day-btn.today {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: var(--c-amber-bg);
+}
+.day-btn.today .dname { color: var(--c-accent); }
+.day-btn.on { 
+  background: var(--c-primary); 
+  border-color: var(--c-primary); 
+  box-shadow: 0 4px 12px rgba(12, 74, 110, 0.2); 
+  transform: translateY(-2px);
+}
+.day-btn.on .dname, .day-btn.on .dnum { color: #fff; }
+
+/* ── NEXT CARD ── */
 .nxt{background:linear-gradient(148deg,var(--c-primary) 0%,var(--c-primary2) 100%);border-radius:22px;padding:24px 22px 20px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 6px 28px rgba(12,74,110,.2);}
 .nxt::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
 .nxt-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:8px;margin-bottom:14px;}
@@ -168,64 +241,24 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .skel-card{height:140px;border-radius:20px;margin-bottom:14px;}
 .skel-row{height:48px;margin-bottom:6px;}
 
-/* ── CURVE ── */
+/* ── CURVE & MAIN ── */
 .curve{height:28px;background:var(--c-primary);position:relative;}
 .curve::after{content:'';position:absolute;bottom:0;left:0;right:0;height:28px;background:var(--c-bg);border-radius:22px 22px 0 0;}
-
-/* ── MAIN ── */
 .main{max-width:520px;width:100%;margin:0 auto;padding:0 16px 20px;}
 .panel{display:none;}.panel.on{display:block;}
-
-/* ── PAGE WRAPPER — pushes content above bottom nav ── */
 .page-content{padding-bottom:90px;}
-
-/* ── ROUTE SELECTOR ── */
-.routes{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:14px 0 6px;}
-.routes::-webkit-scrollbar{display:none;}
-.route-pill{flex:0 0 auto;background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:20px;padding:7px 14px;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--c-mid);cursor:pointer;white-space:nowrap;transition:all .2s;}
-.route-pill.on{background:var(--c-primary);border-color:var(--c-primary);color:#fff;box-shadow:0 3px 12px rgba(12,74,110,.25);}
-
-/* ── DIRECTION ── */
-.dir{display:grid;grid-template-columns:1fr 48px 1fr;align-items:center;gap:10px;padding:14px 0 12px;}
-.dir-btn{background:var(--c-surface);border:1.5px solid var(--c-border2);border-radius:12px;padding:11px 8px;font-family:var(--sans);font-size:13px;font-weight:500;color:var(--c-mid);cursor:pointer;text-align:center;line-height:1.35;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.05);}
-.dir-btn b{display:block;font-size:14px;font-weight:700;color:var(--c-ink);margin-bottom:2px;}
-.dir-btn small{font-family:var(--mono);font-size:10px;color:var(--c-muted);letter-spacing:.03em;}
-.dir-btn.on{background:var(--c-primary);border-color:var(--c-primary);box-shadow:0 4px 16px rgba(12,74,110,.25);}
-.dir-btn.on b,.dir-btn.on small{color:rgba(255,255,255,.9);}
-.swap{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--c-border2);background:var(--c-surface);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;color:var(--c-primary);transition:transform .32s,background .18s;}
-.swap:hover{transform:rotate(180deg);background:var(--c-blue-bg);}
-
-/* ── DAYS ── */
-.days{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:14px;}
-.days::-webkit-scrollbar{display:none;}
-.day-btn{flex:0 0 auto;background:var(--c-surface);border:1.5px solid var(--c-border);border-radius:10px;padding:7px 11px;cursor:pointer;text-align:center;transition:all .18s;}
-.day-btn .dname{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--c-muted);display:block;margin-bottom:2px;}
-.day-btn .dnum{font-family:var(--serif);font-size:20px;color:var(--c-ink);display:block;line-height:1.1;}
-.day-btn.today .dname{color:var(--c-accent);}
-.day-btn.on{background:var(--c-primary);border-color:var(--c-primary);}
-.day-btn.on .dname,.day-btn.on .dnum{color:#fff;}
-
-/* ── NEXT CARD ── */
-.nxt{background:linear-gradient(148deg,var(--c-primary) 0%,var(--c-primary2) 100%);border-radius:20px;padding:20px 20px 18px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:0 6px 28px rgba(12,74,110,.2);}
-.nxt::before{content:'';position:absolute;top:-50px;right:-50px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none;}
-.nxt-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:7px;margin-bottom:12px;}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--c-accent);animation:blink 2s ease-in-out infinite;}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.6);}}
-.nxt-row{display:flex;align-items:flex-end;gap:12px;margin-bottom:5px;}
-.nxt-time{font-family:var(--serif);font-size:clamp(52px,13vw,72px);font-weight:400;color:#fff;line-height:1;letter-spacing:-.02em;}
-.nxt-cd{background:rgba(245,158,11,.16);border:1px solid rgba(245,158,11,.3);border-radius:9px;padding:5px 11px;font-family:var(--mono);font-size:12px;color:#fbbf24;white-space:nowrap;margin-bottom:5px;}
-.nxt-route{font-size:11px;color:rgba(255,255,255,.45);font-weight:300;padding-top:10px;border-top:1px solid rgba(255,255,255,.08);margin-top:8px;}
-.nxt-up{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px;}
-.up-pill{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.11);border-radius:7px;padding:3px 9px;font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.55);}
-.no-more-card{font-family:var(--serif);font-size:28px;font-style:italic;color:rgba(255,255,255,.5);padding:10px 0;}
 
 /* ── SECTION HDR ── */
 .shdr{display:flex;align-items:center;gap:10px;margin:18px 0 9px;}
 .shdr span{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--c-muted);white-space:nowrap;}
 .shdr::after{content:'';flex:1;height:1px;background:var(--c-border2);}
 
-/* ── FERRY LIST ── (starts from NEXT — no past shown) */
-.flist{display:flex;flex-direction:column;gap:5px;}
+/* ── FERRY LIST ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.flist{display:flex;flex-direction:column;gap:5px; animation: fadeIn 0.3s ease-out forwards;}
 .frow{display:flex;align-items:center;gap:10px;padding:10px 13px;background:var(--c-surface);border-radius:11px;border:1px solid var(--c-border);transition:all .16s;}
 .frow:hover{border-color:var(--c-border2);box-shadow:0 2px 10px rgba(0,0,0,.05);transform:translateX(2px);}
 .frow.nxt-up-row{background:var(--c-blue-bg);border-color:rgba(12,74,110,.28);}
@@ -237,7 +270,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .co-tl{background:var(--co-tl-bg);color:var(--co-tl-tx);}
 .co-ts{background:var(--co-ts-bg);color:var(--co-ts-tx);}
 .co-af{background:var(--co-af-bg);color:var(--co-af-tx);}
-/* Μέσα στο σκούρο next-card — ανοιχτά χρώματα */
 .nxt .co-tf{background:rgba(255,255,255,.14);color:#93c5fd;}
 .nxt .co-tl{background:rgba(255,255,255,.14);color:#fcd34d;}
 .nxt .co-ts{background:rgba(255,255,255,.14);color:#6ee7b7;}
@@ -245,8 +277,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .fmins{font-family:var(--mono);font-size:11px;color:var(--c-accent);white-space:nowrap;}
 .empty-day{text-align:center;padding:32px 20px;font-family:var(--serif);font-size:20px;font-style:italic;color:var(--c-muted);}
 
-/* ── PRICES ── */
-.prices-wrap{padding-top:6px;}
+/* ── PRICES & INFO ── */
+.prices-wrap, .info-wrap{padding-top:6px;}
 .co-section{background:var(--c-surface);border-radius:14px;border:1px solid var(--c-border);overflow:hidden;margin-bottom:12px;}
 .co-hdr{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--c-border);flex-wrap:wrap;}
 .co-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -272,8 +304,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .info-box li{font-size:12px;font-weight:300;padding:3px 0;line-height:1.5;display:flex;gap:7px;}
 .info-box li::before{content:'›';flex-shrink:0;}
 
-/* ── INFO ── */
-.info-wrap{padding-top:6px;overflow:hidden;}
 .icard{background:var(--c-surface);border-radius:14px;border:1px solid var(--c-border);padding:16px;margin-bottom:10px;overflow:hidden;}
 .icard h3{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:9px;}
 .icard p{font-size:14px;color:var(--c-mid);font-weight:400;line-height:1.6;margin-bottom:7px;}
@@ -282,51 +312,36 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 .co-list li:last-child{border-bottom:none;}
 .co-list .nm{font-weight:500;flex:1;}
 .co-list a{font-family:var(--mono);font-size:11px;color:var(--c-muted);text-decoration:none;}
-.co-list a:hover{color:var(--c-primary);}
 
 /* ── FOOTER ── */
 .footer{text-align:center;padding:24px 16px 16px;font-size:11px;color:var(--c-muted);line-height:1.8;max-width:520px;margin:0 auto;}
 .footer a{color:var(--c-muted);text-decoration:none;}
-.footer a:hover{color:var(--c-primary);}
 .disclaimer{background:var(--c-amber-bg);border:1px solid rgba(180,83,9,.12);border-radius:10px;padding:10px 14px;margin:0 0 16px;font-size:12px;color:var(--c-amber-tx);line-height:1.5;text-align:left;}
-.disclaimer::before{content:'⚠️ ';}
 
 @keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 .nxt{animation:up .45s ease both;}
-.flist{animation:up .45s ease .08s both;}
 
-/* ── MOBILE ─────────────────────────────────────────────────────── */
+/* ── MOBILE ── */
 @media (max-width: 480px) {
   .hdr{padding:14px 14px 0;}
-  .eyebrow{font-size:9px;letter-spacing:.15em;}
+  .eyebrow{font-size:9px;}
   .site-ttl{font-size:26px;}
-  .hdr-meta{font-size:11px;margin-top:4px;}
-  .tabs{margin-top:12px;}
-  .tab{font-size:11px;padding:8px 10px 10px;letter-spacing:0;}
-  .main{padding:0 12px 60px;}
-  .dir{gap:6px;padding:10px 0 8px;}
-  .dir-btn{padding:10px 6px;border-radius:10px;}
-  .dir-btn b{font-size:12px;}
-  .dir-btn small{font-size:8px;}
-  .swap{width:32px;height:32px;font-size:13px;}
+  .route-dropdowns { gap: 8px; padding: 10px 0 14px; }
+  .select-wrap { padding: 8px 10px 8px 12px; border-radius: 10px; }
+  .select-wrap select { font-size: 13px; }
+  .swap { width: 32px; height: 32px; font-size: 13px; }
   .days{gap:4px;margin-bottom:10px;}
-  .day-btn{padding:6px 8px;}
+  .day-btn { padding: 6px 0; border-radius: 8px; }
   .day-btn .dname{font-size:8px;}
-  .day-btn .dnum{font-size:16px;}
+  .day-btn .dnum{font-size:15px;}
   .nxt{padding:14px 14px 12px;border-radius:14px;}
-  .nxt-lbl{font-size:8px;margin-bottom:8px;}
   .nxt-time{font-size:52px;}
   .nxt-cd{font-size:11px;padding:4px 8px;}
   .frow{padding:12px 11px;min-height:48px;}
   .ftime{font-size:17px;min-width:50px;}
-  .co-tag{font-size:10px;padding:3px 7px;}
-  .fmins{font-size:10px;}
-  .prow{padding:10px 13px;}
-  .footer{padding:20px 12px 12px;}
 }
 @media (max-width: 360px) {
   .site-ttl{font-size:22px;}
-  .tab{font-size:10px;padding:8px 8px 10px;}
   .nxt-time{font-size:46px;}
 }
 </style>
@@ -356,19 +371,30 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
   <div class="panel on" id="panel-schedule">
 
-    <div class="routes">
-      <button class="route-pill on" id="pill-limenas" onclick="setRoute('limenas')">Κεραμωτή ↔ Λιμένας</button>
-      <button class="route-pill"    id="pill-prinos"  onclick="setRoute('prinos')">Καβάλα ↔ Πρίνος</button>
-    </div>
-
-    <div class="dir">
-      <button class="dir-btn on" id="btn-k" onclick="setDir('k')">
-        <b>Κεραμωτή</b><small>→ Λιμένας Θάσου</small>
-      </button>
-      <button class="swap" onclick="swapDir()">⇄</button>
-      <button class="dir-btn" id="btn-t" onclick="setDir('t')">
-        <b>Λιμένας Θάσου</b><small>→ Κεραμωτή</small>
-      </button>
+    <div class="route-dropdowns">
+      <div class="route-col">
+        <label class="route-lbl">ΑΠΟ</label>
+        <div class="select-wrap">
+          <select id="from-port" onchange="updateFromPort()">
+            <option value="k">Κεραμωτή</option>
+            <option value="t">Λιμένας</option>
+            <option value="kav">Καβάλα</option>
+            <option value="pri">Πρίνος</option>
+          </select>
+        </div>
+      </div>
+      <button class="swap" onclick="swapPorts()">⇄</button>
+      <div class="route-col">
+        <label class="route-lbl">ΠΡΟΣ</label>
+        <div class="select-wrap">
+          <select id="to-port" onchange="updateToPort()">
+            <option value="t">Λιμένας</option>
+            <option value="k">Κεραμωτή</option>
+            <option value="pri">Πρίνος</option>
+            <option value="kav">Καβάλα</option>
+          </select>
+        </div>
+      </div>
     </div>
 
     <div class="days" id="days"></div>
@@ -397,128 +423,45 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
 
   <div class="panel" id="panel-prices">
     <div class="prices-wrap">
-
       <div class="shdr" style="margin-top:14px"><span>Κεραμωτή — Λιμένας Θάσου</span></div>
 
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-tl"></span>
-          <span class="co-name">Thassos Link</span>
-          <a href="tel:+306973404079" class="co-phone">6973 404079</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-tl"></span><span class="co-name">Thassos Link</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">5,00€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">20,00€ <span class="highlight">Promo: 12€</span></span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">25,00€ <span class="highlight">Promo: 17€</span></span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">5,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
-        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">3,00€</span></div>
-        <p class="pnote">* Promo τιμές οχημάτων — επιβεβαιώστε στο εκδοτήριο.</p>
       </div>
-
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-tf"></span>
-          <span class="co-name">Thassos Ferries</span>
-          <a href="tel:+302593024001" class="co-phone">25930 24001</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-tf"></span><span class="co-name">Thassos Ferries</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">7,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
-        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
-
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-af"></span>
-          <span class="co-name">Aneth Ferries</span>
-          <a href="tel:+302593022318" class="co-phone">25930 22318</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-af"></span><span class="co-name">Aneth Ferries</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">3,00€</span></div>
         <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">7,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">3,00€</span></div>
-        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
-        <p class="pnote">* Thassos Ferries & Aneth Ferries λειτουργούν ως κοινοπραξία — ίδιες τιμές.</p>
       </div>
-
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-ts"></span>
-          <span class="co-name">Thassos Seaways</span>
-          <a href="tel:+302104657211" class="co-phone">210 4657211</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-ts"></span><span class="co-name">Thassos Seaways</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">~6,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">~21,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα</span><span class="pval">~5–6€</span></div>
-        <p class="pnote">* Επιβεβαιώστε τιμές στο εκδοτήριο ή στο τηλέφωνο.</p>
       </div>
 
       <div class="shdr" style="margin-top:20px"><span>Καβάλα — Πρίνος Θάσου</span></div>
-
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-tl"></span>
-          <span class="co-name">Thassos Link</span>
-          <a href="tel:+306973404079" class="co-phone">6973 404079</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-tl"></span><span class="co-name">Thassos Link</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,50€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">4,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">20,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">25,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">6,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">8,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">4,00€</span></div>
-        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
-
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-af"></span>
-          <span class="co-name">Aneth Ferries</span>
-          <a href="tel:+302593022318" class="co-phone">25930 22318</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-af"></span><span class="co-name">Aneth Ferries</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,50€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">4,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">7,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">9,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">4,00€</span></div>
-        <div class="prow"><span class="pcat">Γκρουπ (ανά άτομο)</span><span class="pval">4,00€</span></div>
       </div>
-
       <div class="co-section">
-        <div class="co-hdr">
-          <span class="co-dot dot-tf"></span>
-          <span class="co-name">Thassos Ferries</span>
-          <a href="tel:+302593024001" class="co-phone">25930 24001</a>
-        </div>
+        <div class="co-hdr"><span class="co-dot dot-tf"></span><span class="co-name">Thassos Ferries</span></div>
         <div class="prow"><span class="pcat">Επιβάτης</span><span class="pval">6,50€</span></div>
-        <div class="prow"><span class="pcat">Παιδί 5–10 ετών</span><span class="pval">4,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο έως 4,25μ</span><span class="pval">22,00€</span></div>
-        <div class="prow"><span class="pcat">Αυτοκίνητο άνω 4,25μ</span><span class="pval">27,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα έως 250cc</span><span class="pval">7,00€</span></div>
-        <div class="prow"><span class="pcat">Μοτοσυκλέτα άνω 250cc</span><span class="pval">9,00€</span></div>
-        <div class="prow"><span class="pcat">Ποδήλατο</span><span class="pval">4,00€</span></div>
-        <p class="pnote">* Thassos Ferries & Aneth Ferries — ίδιες τιμές για Καβάλα-Πρίνος.</p>
       </div>
 
       <div class="info-box amber" style="margin-top:4px">
         <h4>💡 Καβάλα — Πρίνος</h4>
-        <ul>
-          <li>3 δρομολόγια ημερησίως καθ' όλη τη διάρκεια του χρόνου.</li>
-          <li>Διάρκεια πλου: ~75 λεπτά.</li>
-          <li>Λιμάνι Πρίνου: 20 χλμ από Λιμένα Θάσου.</li>
-        </ul>
+        <ul><li>3 δρομολόγια ημερησίως καθ' όλη τη διάρκεια του χρόνου.</li></ul>
       </div>
 
       <div class="info-box green">
@@ -526,7 +469,6 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <ul>
           <li>Thassos Link — Πολύτεκνοι/Τρίτεκνοι: <b>50%</b></li>
           <li>ΑΝΕΘ — ΑμεΑ (60%+): <b>50%</b> σε επιβάτες & οχήματα</li>
-          <li>ΑΝΕΘ — Πολύτεκνοι: <b>50%</b> · Τρίτεκνοι: <b>50%</b> (επιβάτες)</li>
           <li>Παιδιά έως 5 ετών: <b>Δωρεάν</b> παντού</li>
         </ul>
       </div>
@@ -535,12 +477,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
         <h4>💡 Χρήσιμα</h4>
         <ul>
           <li>Εισιτήρια μόνο στο εκδοτήριο λιμανιού — δεν υπάρχει online αγορά.</li>
-          <li>Αποδεκτές χρεωστικές & πιστωτικές κάρτες.</li>
-          <li>Με αυτοκίνητο: προσέλευση 30–45 λεπτά νωρίτερα.</li>
-          <li>Δεν εκδίδονται εισιτήρια aller-retour.</li>
         </ul>
       </div>
-
     </div>
   </div>
 
@@ -548,38 +486,17 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
     <div class="info-wrap">
       <div class="icard" style="margin-top:14px">
         <h3>Οι δύο γραμμές προς Θάσο</h3>
-        <p><b>Κεραμωτή → Λιμένας Θάσου:</b> Η κύρια γραμμή. 30 δρομολόγια ημερησίως, από 04:30 έως 22:30. Διάρκεια ~35 λεπτά. Αεροδρόμιο Καβάλας 12 χλμ από Κεραμωτή.</p>
-        <p><b>Καβάλα → Πρίνος:</b> 3 δρομολόγια ημερησίως. Διάρκεια ~75 λεπτά. Το λιμάνι Πρίνου βρίσκεται στη δυτική πλευρά, 20 χλμ από τον Λιμένα.</p>
+        <p><b>Κεραμωτή → Λιμένας Θάσου:</b> Η κύρια γραμμή. 30 δρομολόγια ημερησίως, από 04:30 έως 22:30. Διάρκεια ~35 λεπτά.</p>
+        <p><b>Καβάλα → Πρίνος:</b> 3 δρομολόγια ημερησίως. Διάρκεια ~75 λεπτά.</p>
       </div>
       <div class="icard">
         <h3>Εταιρείες</h3>
         <ul class="co-list">
-          <li><span class="co-dot dot-tf"></span><span class="nm">Thassos Ferries (ΑΝΕΘ)</span><a href="tel:+302593024001">25930 24001</a></li>
-          <li><span class="co-dot dot-tl"></span><span class="nm">Thassos Link</span><a href="tel:+306973404079">6973 404079</a></li>
-          <li><span class="co-dot dot-ts"></span><span class="nm">Thassos Seaways</span><a href="tel:+302104657211">210 4657211</a></li>
-          <li><span class="co-dot dot-af"></span><span class="nm">Aneth Ferries</span><a href="tel:+302593022318">25930 22318</a></li>
+          <li><span class="co-dot dot-tf"></span><span class="nm">Thassos Ferries</span></li>
+          <li><span class="co-dot dot-tl"></span><span class="nm">Thassos Link</span></li>
+          <li><span class="co-dot dot-ts"></span><span class="nm">Thassos Seaways</span></li>
+          <li><span class="co-dot dot-af"></span><span class="nm">Aneth Ferries</span></li>
         </ul>
-      </div>
-      <div class="icard">
-        <h3>Λιμεναρχεία</h3>
-        <ul class="co-list">
-          <li>
-            <span class="co-dot" style="background:#1a6e8e"></span>
-            <span class="nm">Λιμεναρχείο Καβάλας</span>
-            <a href="tel:+302513505430">2513 505430</a>
-          </li>
-          <li>
-            <span class="co-dot" style="background:#1a6e8e"></span>
-            <span class="nm">Λιμενικό Τμήμα Κεραμωτής</span>
-            <a href="tel:+302591051204">25910 51204</a>
-          </li>
-        </ul>
-        <p style="font-size:12px;color:var(--c-muted);margin-top:10px;font-weight:300;">Για απαγορευτικό απόπλου, ακυρώσεις και τροποποιήσεις δρομολογίων.</p>
-      </div>
-      <div class="icard">
-        <h3>Σχετικά με τα δρομολόγια</h3>
-        <p>Οι ώρες είναι <b>ίδιες κάθε μέρα</b> (Δευ–Κυρ). Αλλάζει ποια εταιρεία εκτελεί κάθε δρομολόγιο — οι 4 εναλλάσσονται βάσει εβδομαδιαίου πίνακα.</p>
-        <p>Ενημέρωση <b>κάθε Κυριακή</b> για την επόμενη εβδομάδα.</p>
       </div>
     </div>
   </div>
@@ -587,57 +504,23 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--sans);font-size
   <div class="panel" id="panel-map">
     <div class="shdr" style="margin-top:16px"><span>Live — Πλοία στην περιοχή</span></div>
     <div style="border-radius:16px;overflow:hidden;border:1px solid var(--c-border);margin-bottom:14px;background:#e8f0f7;">
-      <iframe
-        src="https://www.marinetraffic.com/en/ais/embed/zoom:11/centery:40.77/centerx:24.72/maptype:4/shownames:true/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false"
-        width="100%"
-        height="420"
-        frameborder="0"
-        style="display:block;"
-        loading="lazy"
-        title="Live ship map Thassos">
-      </iframe>
+      <iframe src="https://www.marinetraffic.com/en/ais/embed/zoom:11/centery:40.77/centerx:24.72/maptype:4/shownames:true/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:/remember:false" width="100%" height="420" frameborder="0" style="display:block;" loading="lazy" title="Live ship map Thassos"></iframe>
     </div>
-    <div class="info-box amber" style="margin-bottom:10px">
-      <h4>💡 Πληροφορίες χάρτη</h4>
-      <ul>
-        <li>Εμφανίζει τα πλοία που εκτελούν δρομολόγια τώρα.</li>
-        <li>Πηγή: MarineTraffic — real-time AIS δεδομένα.</li>
-        <li>Χρειάζεται σύνδεση internet.</li>
-      </ul>
-    </div>
-    <a href="https://www.marinetraffic.com/en/ais/home/centerx:24.72/centery:40.77/zoom:11" target="_blank"
-       style="display:block;text-align:center;background:var(--c-primary);color:#fff;border-radius:12px;padding:14px;font-family:var(--sans);font-size:14px;font-weight:600;text-decoration:none;letter-spacing:.02em;">
-      🗺️ Πλήρης Χάρτης →
-    </a>
+    <a href="https://www.marinetraffic.com/en/ais/home/centerx:24.72/centery:40.77/zoom:11" target="_blank" style="display:block;text-align:center;background:var(--c-primary);color:#fff;border-radius:12px;padding:14px;font-family:var(--sans);font-size:14px;font-weight:600;text-decoration:none;">🗺️ Πλήρης Χάρτης →</a>
   </div>
 
 </main>
 
 <section style="max-width:520px;margin:0 auto;padding:0 16px 20px;color:var(--c-mid);">
-  <h2 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--c-ink);margin-bottom:12px;">
-    Δρομολόγια Ferry Θάσος 2026
-  </h2>
-  <p style="font-size:13px;line-height:1.7;margin-bottom:10px;">
-    Η <strong>γραμμή Κεραμωτή–Λιμένας Θάσου</strong> εξυπηρετείται από 4 εταιρείες (Thassos Ferries, Thassos Link, Thassos Seaways, Aneth Ferries) με 30 δρομολόγια ημερησίως, από 04:30 έως 22:30. Διάρκεια <strong>~35 λεπτά</strong>.
-  </p>
-  <p style="font-size:13px;line-height:1.7;margin-bottom:10px;">
-    Η <strong>γραμμή Καβάλα–Πρίνος</strong> λειτουργεί με 3 δρομολόγια ημερησίως και διάρκεια <strong>~75 λεπτά</strong>. Το λιμάνι Πρίνου βρίσκεται στη δυτική πλευρά της Θάσου.
-  </p>
-  <p style="font-size:13px;line-height:1.7;">
-    The <strong>Thassos ferry</strong> operates on two routes: Keramoti to Limenas (35 min, 30 daily departures) and Kavala to Prinos (75 min, 3 daily departures). Tickets at port offices only — no online booking.
-  </p>
+  <h2 style="font-family:var(--serif);font-size:22px;font-weight:400;color:var(--c-ink);margin-bottom:12px;">Δρομολόγια Ferry Θάσος 2026</h2>
+  <p style="font-size:13px;line-height:1.7;margin-bottom:10px;">Η <strong>γραμμή Κεραμωτή–Λιμένας Θάσου</strong> εξυπηρετείται με 30 δρομολόγια ημερησίως. Διάρκεια <strong>~35 λεπτά</strong>.</p>
 </section>
 
 <footer class="footer" style="padding-bottom:100px;">
   <div class="disclaimer">
-    Δεν φέρουμε ευθύνη για ακυρώσεις λόγω καιρού ή ανωτέρας βίας. Για απαγορευτικό ή τροποποιήσεις:<br>
-    <strong>Λιμεναρχείο Καβάλας:</strong> <a href="tel:+302513505430" style="color:var(--c-amber-tx);">2513 505430</a> · <a href="mailto:kavala@hcg.gr" style="color:var(--c-amber-tx);">kavala@hcg.gr</a><br>
-    <strong>Λιμενικό Τμήμα Κεραμωτής:</strong> <a href="tel:+302591051204" style="color:var(--c-amber-tx);">25910 51204</a> · <a href="mailto:keramoti@hcg.gr" style="color:var(--c-amber-tx);">keramoti@hcg.gr</a>
+    Δεν φέρουμε ευθύνη για ακυρώσεις λόγω καιρού ή ανωτέρας βίας.
   </div>
-  Πηγή: <a href="https://anethferries.gr" target="_blank">anethferries.gr</a> ·
-  <a href="https://thassoslink.gr" target="_blank">thassoslink.gr</a> ·
-  <a href="https://thassos-seaways.gr" target="_blank">thassos-seaways.gr</a> ·
-  <a href="http://www.thassos-ferries.gr" target="_blank">thassos-ferries.gr</a>
+  Πηγή: <a href="https://anethferries.gr" target="_blank">anethferries.gr</a> · <a href="https://thassoslink.gr" target="_blank">thassoslink.gr</a>
 </footer>
 
 <script>
@@ -651,15 +534,12 @@ const COS = {
 };
 
 function getco(code){
-  // Καθαρισμός: null, "null", ώρες κλπ → εμφάνιση ως άγνωστο
   if(!code || code==='null' || /^\d{2}:\d{2}$/.test(code)) return null;
   return COS[code] || null;
 }
 
 let dir='k', selDay=-1, todayIdx=-1, timetable=null, route='limenas';
 
-// Kavala-Prinos hardcoded (3 δρομολόγια/μέρα, από PDF 20-26 Απρ 2026)
-// Format: [time, mon, tue, wed, thu, fri, sat, sun]
 const KP_FROM_KAVALA = [
   ["09:15","TF","TL","AF","TL","AF","TS","TF"],
   ["14:00","TF","TS","TL","AF","TF","TL","AF"],
@@ -682,12 +562,11 @@ function fmt(m){
 function sched(){
   const raw = route==='limenas'
     ? (dir==='k' ? timetable?.from_keramoti : timetable?.from_thassos)
-    : (dir==='k' ? timetable?.from_kavala   : timetable?.from_prinos);
+    : (dir==='k' ? KP_FROM_KAVALA : KP_FROM_PRINOS); 
   if(!raw) return [];
   return raw.map(row=>({time:row[0],days:{mon:row[1],tue:row[2],wed:row[3],thu:row[4],fri:row[5],sat:row[6],sun:row[7]}}));
 }
 function findTodayIdx(ws){
-  // Timezone-safe: treat both dates as local midnight
   const t=new Date();
   const today=new Date(t.getFullYear(),t.getMonth(),t.getDate());
   const [y,m,d]=ws.split('-').map(Number);
@@ -702,20 +581,59 @@ function renderDays(){
     const d=new Date(ws);d.setDate(ws.getDate()+i);
     const isToday=i===todayIdx;
     return`<button class="day-btn ${isToday?'today':''} ${i===selDay?'on':''}" onclick="selDay=${i};render()">
-      <span class="dname">${isToday?'ΣΗΜΕΡΑ':DAY_LABELS[i].d}</span>
+      <span class="dname">${isToday?'ΣΗΜ':DAY_LABELS[i].d}</span>
       <span class="dnum">${d.getDate()}</span>
     </button>`;
   }).join('');
 }
 
+function updateFromPort() {
+  const val = document.getElementById('from-port').value;
+  if (val === 'k') { route = 'limenas'; dir = 'k'; }
+  else if (val === 't') { route = 'limenas'; dir = 't'; }
+  else if (val === 'kav') { route = 'prinos'; dir = 'k'; }
+  else if (val === 'pri') { route = 'prinos'; dir = 't'; }
+  syncDropdowns();
+  render();
+}
+
+function updateToPort() {
+  const val = document.getElementById('to-port').value;
+  if (val === 't') { route = 'limenas'; dir = 'k'; }
+  else if (val === 'k') { route = 'limenas'; dir = 't'; }
+  else if (val === 'pri') { route = 'prinos'; dir = 'k'; }
+  else if (val === 'kav') { route = 'prinos'; dir = 't'; }
+  syncDropdowns();
+  render();
+}
+
+function syncDropdowns() {
+  const from = document.getElementById('from-port');
+  const to = document.getElementById('to-port');
+  if (route === 'limenas') {
+    from.value = dir === 'k' ? 'k' : 't';
+    to.value = dir === 'k' ? 't' : 'k';
+  } else {
+    from.value = dir === 'k' ? 'kav' : 'pri';
+    to.value = dir === 'k' ? 'pri' : 'kav';
+  }
+}
+
+function swapPorts() {
+  const sw=document.querySelector('.swap');
+  sw.classList.toggle('flipped');
+  dir = dir === 'k' ? 't' : 'k';
+  syncDropdowns();
+  render();
+}
+
 function render(){
-  // Για prinos δεν χρειάζεται timetable
   if(!timetable && route==='limenas'){
     document.getElementById('flist').innerHTML='<div class="empty-day">Φόρτωση...</div>';
     return;
   }
   renderDays();
-  if(selDay < 0) return; // ημέρα δεν έχει επιλεγεί ακόμα
+  if(selDay < 0) return;
   const s=sched();
   const isToday=selDay===todayIdx;
   const now=isToday?nowM():-1;
@@ -723,24 +641,13 @@ function render(){
   const startIdx=isToday?Math.max(nextIdx,0):0;
   const dayKey=DAYS_MAP[selDay];
 
-  document.getElementById('btn-k').classList.toggle('on',dir==='k');
-  document.getElementById('btn-t').classList.toggle('on',dir==='t');
-
-  if(route==='limenas'){
-    document.getElementById('btn-k').innerHTML='<b>Κεραμωτή</b><small>→ Λιμένας Θάσου</small>';
-    document.getElementById('btn-t').innerHTML='<b>Λιμένας Θάσου</b><small>→ Κεραμωτή</small>';
-  } else {
-    document.getElementById('btn-k').innerHTML='<b>Καβάλα</b><small>→ Πρίνος</small>';
-    document.getElementById('btn-t').innerHTML='<b>Πρίνος</b><small>→ Καβάλα</small>';
-  }
-
   document.getElementById('listLbl').textContent=
     route==='limenas'
-      ?(dir==='k'?'Αναχωρήσεις από Κεραμωτή':'Αναχωρήσεις από Λιμένα Θάσου')
+      ?(dir==='k'?'Αναχωρήσεις από Κεραμωτή':'Αναχωρήσεις από Λιμένα')
       :(dir==='k'?'Αναχωρήσεις από Καβάλα':'Αναχωρήσεις από Πρίνο');
 
   const routeTxt=route==='limenas'
-    ?(dir==='k'?'🚢 Κεραμωτή → Λιμένας Θάσου · ~35 λεπτά':'🚢 Λιμένας Θάσου → Κεραμωτή · ~35 λεπτά')
+    ?(dir==='k'?'🚢 Κεραμωτή → Λιμένας · ~35 λεπτά':'🚢 Λιμένας → Κεραμωτή · ~35 λεπτά')
     :(dir==='k'?'🚢 Καβάλα → Πρίνος · ~75 λεπτά':'🚢 Πρίνος → Καβάλα · ~75 λεπτά');
 
   if(isToday&&nextIdx>=0){
@@ -750,7 +657,6 @@ function render(){
     document.getElementById('nxtCd').textContent=mAway<1?'Τώρα!':'σε '+fmt(mAway);
     document.getElementById('nxtCo').innerHTML=co?`<span class="co-tag ${co.cls}">${co.label}</span>`:'';
     document.getElementById('nxtRoute').textContent=routeTxt;
-    // Horizontal upcoming cards
     document.getElementById('nxtUp').innerHTML=
       s.slice(nextIdx+1,nextIdx+4).map(x=>{
         const m=toM(x.time)-now;
@@ -776,44 +682,34 @@ function render(){
     document.getElementById('nxtUp').innerHTML='';
   }
 
-  // Updated badge
   if(timetable){
     const ws2=new Date(timetable.week_start);
     document.getElementById('updatedBadge').textContent=
       'Ενημέρωση '+ws2.toLocaleDateString('el-GR',{day:'numeric',month:'short'});
   }
 
+  const flist = document.getElementById('flist');
   const upcoming=s.slice(startIdx);
   if(!upcoming.length){
-    document.getElementById('flist').innerHTML='<div class="empty-day">Δεν υπάρχουν άλλα δρομολόγια.</div>';
-    return;
+    flist.innerHTML='<div class="empty-day">Δεν υπάρχουν άλλα δρομολόγια.</div>';
+  } else {
+    flist.innerHTML=upcoming.map((sl,i)=>{
+      const absIdx=startIdx+i;
+      const isNext=isToday&&absIdx===nextIdx;
+      const minsAway=isToday?toM(sl.time)-now:null;
+      const co=getco(sl.days[dayKey]);
+      return`<div class="frow ${isNext?'nxt-up-row':''}">
+        <span class="ftime">${sl.time}</span>
+        <span class="fco">${co?`<span class="co-tag ${co.cls}">${co.label}</span>`:''}</span>
+        ${minsAway!==null?`<span class="fmins">${fmt(minsAway)}</span>`:''}
+      </div>`;
+    }).join('');
   }
-  document.getElementById('flist').innerHTML=upcoming.map((sl,i)=>{
-    const absIdx=startIdx+i;
-    const isNext=isToday&&absIdx===nextIdx;
-    const minsAway=isToday?toM(sl.time)-now:null;
-    const co=getco(sl.days[dayKey]);
-    return`<div class="frow ${isNext?'nxt-up-row':''}">
-      <span class="ftime">${sl.time}</span>
-      <span class="fco">${co?`<span class="co-tag ${co.cls}">${co.label}</span>`:''}</span>
-      ${minsAway!==null?`<span class="fmins">${fmt(minsAway)}</span>`:''}
-    </div>`;
-  }).join('');
-}
-
-function setDir(d){dir=d;render();}
-function swapDir(){
-  const sw=document.querySelector('.swap');
-  sw.classList.toggle('flipped');
-  dir=dir==='k'?'t':'k';
-  render();
-}
-function setRoute(r){
-  route=r; dir='k';
-  document.querySelector('.swap').classList.remove('flipped');
-  document.getElementById('pill-limenas').classList.toggle('on',r==='limenas');
-  document.getElementById('pill-prinos').classList.toggle('on',r==='prinos');
-  render();
+  
+  // Trigger reflow to restart fade-in animation
+  flist.style.animation = 'none';
+  flist.offsetHeight; 
+  flist.style.animation = null; 
 }
 
 function showPanel(name){
@@ -829,9 +725,11 @@ fetch('timetable.json')
     timetable=data;
     todayIdx=findTodayIdx(data.week_start);
     selDay=todayIdx>=0?todayIdx:0;
+    syncDropdowns();
     render();
   })
   .catch(()=>{
+    selDay = 0; 
     document.getElementById('nxtTime').textContent='—';
     document.getElementById('nxtCd').textContent='—';
     document.getElementById('flist').innerHTML=
